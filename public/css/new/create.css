@@ -1,0 +1,98 @@
+#CreationPanel {
+	display:inline-block;
+	width: 688px;
+}
+
+#CreationPanel #UploadPanel {
+	display: inline-block;
+	border: 2px solid black;
+	min-height: 180px;
+	background: #1a1a1a;
+	vertical-align: middle;
+
+	border-top: 0;
+	position: relative;
+	margin-bottom: 15px;
+
+	padding: 10px;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+#UploadPanel td {
+	vertical-align: top;
+}
+
+#UploadPanel input[type=text],
+#UploadPanel textarea {
+	border: 2px solid black;
+	background: #444;
+	color: white;
+	padding: 2px;
+	width: 99%;
+}
+
+#UploadPanel input[type=submit],
+#UploadPanel label[for=files],
+#UploadPanel select {
+	border: 2px solid black;
+	background: black;
+	color: white;
+	padding: 4px 8px;
+	font-weight: bold;
+	font-family: punk;
+	font-size: 12px
+}
+
+#UploadPanel input[type=submit]:hover,
+#UploadPanel label[for=files]:hover,
+#UploadPanel select:hover {
+	text-decoration: underline;
+	background: #161616;
+	cursor: pointer;
+	font-size: 12px;
+}
+
+#UploadPanel textarea {
+	height: 58px;
+	resize: vertical;
+}
+
+#UploadPanel label#filename {
+	margin-left: 5px;
+}
+
+#UploadPanel #ErrorTime,
+#UploadPanel #InfoWarning {
+	padding: 5px 9px;
+	border-bottom: 2px solid black;
+	background: #9d0000;
+	font-weight: bold;
+}
+
+#UploadPanel #ErrorTime,
+#UploadPanel #SuccessTime,
+#UploadPanel #InfoWarning {
+	padding: 5px 9px;
+	border-bottom: 2px solid black;
+	background: #9d0000;
+	font-weight: bold;
+}
+
+#UploadPanel #InfoWarning {
+	background: #b58b05;
+}
+
+#UploadPanel #SuccessTime {
+	background: #080;
+}
+
+#CreationPanel h3 {
+	margin: 0;
+	padding-right: 0px;
+	width: 664px;
+	background: #151515;
+	border: 2px solid black;
+	border-top: none;
+	text-align: center;
+}

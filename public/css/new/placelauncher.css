@@ -1,0 +1,58 @@
+#LaunchingGameContainer {
+	position: fixed;
+	inset: 0;
+	background: black;
+	z-index: 10000;
+	backdrop-filter: blur(10px);
+	background: linear-gradient(#33333399, #00000099);
+	display: flex;
+	align-items: anchor-center;
+	justify-content: center;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.5s;
+}
+
+#LaunchingGameContainer .Window {
+	margin: auto;
+}
+
+#LaunchingGameContainer .Window #Contents {
+	width: 300px;
+	display: flex;
+	align-items: anchor-center;
+	justify-content: center;
+	text-align: center;
+}
+
+#LaunchingGameContainer .Window #Contents #LaunchingTextContainer {
+	font-size: 15px;
+	font-family: punk;
+	background: black;
+	padding: 7px 10px;
+	margin: 0px;
+	margin-top: 10px;
+}
+
+#LaunchingGameContainer .Window #Contents #LaunchingTextContainer img {
+	margin-bottom: -2px;
+}
+
+#LaunchingGameContainer .Window #Contents #RunningGuy img {
+	width: 100%;
+	max-height: 100px;
+	object-fit: contain;
+}
+
+#LaunchingGameContainer .Window #Contents #LauncherQuote {
+	margin: 0px;
+	margin-top: 10px;
+	color: #CCC;
+	letter-spacing: 1px;
+	font-style: italic;
+}
+
+#LaunchingGameContainer .Window .DownloadClientContainer,
+#LaunchingGameContainer .Window .DownloadStudioContainer {
+	display: none;
+}

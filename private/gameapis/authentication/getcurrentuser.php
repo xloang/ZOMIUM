@@ -1,0 +1,1 @@
+<?php echo SESSION ? SESSION->user->id : -1; ?>
