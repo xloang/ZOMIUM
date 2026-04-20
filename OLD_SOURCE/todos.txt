@@ -1,0 +1,5 @@
+ilk olarak yol şeyi tamamlanmalı
+app klasöründe işte örn /app/games.php yerine direkt  /app/games
+arbiter üzerinde çalış
+novarin navbar
+novarin theme

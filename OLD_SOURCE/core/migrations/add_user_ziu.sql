@@ -1,0 +1,1 @@
+ALTER TABLE `users` ADD `user_ziu` INT(11) NOT NULL DEFAULT 100;

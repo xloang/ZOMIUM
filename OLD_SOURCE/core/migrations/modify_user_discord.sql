@@ -1,0 +1,1 @@
+ALTER TABLE `users` MODIFY `user_discord` VARCHAR(256) NULL DEFAULT NULL;

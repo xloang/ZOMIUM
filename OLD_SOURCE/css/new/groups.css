@@ -1,0 +1,463 @@
+.groups-page {
+    background: transparent;
+}
+
+.groups-shell {
+    display: grid;
+    gap: 1rem;
+}
+
+.groups-hero,
+.groups-panel,
+.group-card,
+.group-create-card,
+.group-empty,
+.group-detail-hero,
+.group-manage-card,
+.groups-search,
+.groups-searchbar,
+.group-create-bullet,
+.group-create-logo-box,
+.group-detail-logo-wrap,
+.group-member-avatar,
+.role-pill,
+.member-role-pill,
+.download-btn,
+.groups-page .btn,
+.groups-page .form-control,
+.groups-page .form-select,
+.groups-page textarea {
+    border-radius: 0 !important;
+}
+
+.groups-hero,
+.groups-panel,
+.group-card,
+.group-create-card,
+.group-empty,
+.group-detail-hero,
+.group-manage-card,
+.groups-search,
+.groups-searchbar,
+.group-create-bullet {
+    background: #161617;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+}
+
+.groups-hero,
+.group-create-card,
+.group-manage-card,
+.group-detail-hero,
+.groups-panel {
+    padding: 1rem;
+}
+
+.groups-kicker {
+    display: none;
+}
+
+.groups-title {
+    margin: 0;
+    color: #f1f3f6;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.groups-subtitle {
+    margin: 0.45rem 0 0;
+    color: #9ea6b2;
+    font-size: 0.96rem;
+}
+
+.groups-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.groups-statbar {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.groups-stat {
+    min-width: 9.5rem;
+    padding: 0.75rem 0.85rem;
+    background: #161617;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.groups-stat-label {
+    display: block;
+    color: #8f97a3;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+}
+
+.groups-stat-value {
+    display: block;
+    margin-top: 0.15rem;
+    color: #f3f5f8;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.groups-layout {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 1rem;
+}
+
+.groups-panel {
+    padding: 0;
+}
+
+.groups-panel .d-flex {
+    padding: 1rem 1rem 0;
+}
+
+.groups-panel-title {
+    display: none;
+}
+
+.groups-search,
+.groups-searchbar {
+    overflow: hidden;
+    padding: 0.35rem;
+}
+
+.groups-searchbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 0.5rem;
+}
+
+.groups-search .form-control,
+.groups-search .btn,
+.groups-searchbar .form-control,
+.groups-searchbar .form-select,
+.groups-searchbar .btn,
+.groups-searchbar .form-control:focus,
+.groups-searchbar .form-select:focus,
+.groups-page .form-control,
+.groups-page .form-select,
+.groups-page textarea.form-control {
+    background: #161617 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #eef2f6 !important;
+    box-shadow: none !important;
+}
+
+.groups-search .form-control::placeholder,
+.groups-searchbar .form-control::placeholder {
+    color: #8f97a3;
+}
+
+.download-btn {
+    display: inline-block;
+    padding: 0.5rem 0.95rem;
+    background: #161617;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.92rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: background-color .15s ease, border-color .15s ease;
+    text-decoration: none;
+}
+
+.download-btn:hover {
+    background: #4d8fe8;
+    border-color: #3c6fc0;
+    color: #fff;
+}
+
+.groups-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 0.85rem;
+}
+
+.group-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.group-card-art,
+.group-logo-frame,
+.group-create-logo-box {
+    background: #161617;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.group-card-art,
+.group-logo-frame {
+    aspect-ratio: 1 / 1;
+}
+
+.group-card-logo,
+.group-detail-logo,
+.group-create-logo-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.group-card-body {
+    display: grid;
+    gap: 0.7rem;
+    padding: 0.9rem;
+    background: #161617;
+}
+
+.group-card-title,
+.group-detail-name,
+.group-card-heading {
+    margin: 0;
+    color: #f1f3f6;
+    font-weight: 700;
+}
+
+.group-card-title {
+    font-size: 1.05rem;
+}
+
+.group-card-description,
+.group-detail-description,
+.group-create-note,
+.group-empty,
+.group-create-bullet,
+.group-member-user .small {
+    color: #aab3bf;
+}
+
+.group-card-description {
+    margin: 0;
+    min-height: 3.2rem;
+    font-size: 0.92rem;
+}
+
+.group-card-footer,
+.group-meta-row,
+.group-member-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+}
+
+.group-card-footer,
+.group-meta-row {
+    justify-content: space-between;
+}
+
+.role-pill,
+.member-role-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 0.45rem;
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: lowercase;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #161617;
+}
+
+.role-pill.owner,
+.member-role-pill.owner {
+    color: #e0c07a;
+}
+
+.role-pill.admin,
+.member-role-pill.admin {
+    color: #a7c7f7;
+}
+
+.role-pill.member,
+.member-role-pill.member {
+    color: #d9e0e8;
+}
+
+.group-detail-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.group-detail-hero {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 1rem;
+    align-items: start;
+}
+
+.group-detail-logo-wrap {
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.group-detail-description {
+    margin: 0.55rem 0 0;
+    white-space: pre-wrap;
+}
+
+.group-manage-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.group-manage-card,
+.group-create-card {
+    padding: 1rem;
+}
+
+.group-form-stack {
+    display: grid;
+    gap: 0.85rem;
+}
+
+.group-form-stack .form-label {
+    color: #d6dde8;
+    font-weight: 600;
+}
+
+.group-form-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 140px;
+    gap: 0.7rem;
+}
+
+.group-members-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.group-members-table th,
+.group-members-table td {
+    padding: 0.75rem 0.6rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    vertical-align: middle;
+    background: #161617;
+}
+
+.group-members-table th {
+    color: #95a1af;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+}
+
+.group-members-table td {
+    color: #edf2f8;
+}
+
+.group-member-user {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.group-member-avatar {
+    width: 42px;
+    height: 42px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+    background: #161617;
+}
+
+.group-member-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.group-empty {
+    padding: 0.9rem 1rem;
+}
+
+.group-create-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
+    gap: 1rem;
+}
+
+.group-create-logo-box {
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.group-create-logo-preview {
+    aspect-ratio: 1 / 1;
+}
+
+.group-create-sidecopy {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.group-create-bullet strong {
+    display: block;
+    color: #f1f3f6;
+    margin-bottom: 0.18rem;
+}
+
+@media (max-width: 991.98px) {
+    .groups-layout,
+    .group-create-layout,
+    .group-manage-grid,
+    .group-detail-hero,
+    .groups-searchbar,
+    .groups-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .groups-hero {
+        display: grid;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .groups-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .group-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .group-member-actions {
+        display: grid;
+        width: 100%;
+    }
+
+    .group-members-table,
+    .group-members-table thead,
+    .group-members-table tbody,
+    .group-members-table tr,
+    .group-members-table th,
+    .group-members-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .group-members-table thead {
+        display: none;
+    }
+
+    .group-members-table tr {
+        padding: 0.65rem 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .group-members-table td {
+        border: 0;
+        padding: 0.3rem 0;
+    }
+}
