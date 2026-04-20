@@ -1,13 +1,13 @@
 {
 	"database": {
 		"hostname": "localhost",
-		"username": "sqluser",
-		"password": "sqlpassword",
+		"username": "root",
+		"password": "",
 		"name": "anorrldb"
 	},
 	"asset": {
 		"key": "uuid or something",
-		"webhook": "discord webhook for catalog drops",
+		"webhook": "https://discord.com/api/webhooks/1495850932171313214/nw8KNiItfMWurkJppZFNcsSzyiRna2RO7-_x11jKRJNgrvIeiCnHprs65cbTsXRyfzB2",
 		"canforward": false,
 		"roblosec": "this should be filled in if using forwarding system."
 	},
@@ -19,5 +19,5 @@
 		"token": "sha256 for ANSRAL",
 		"disabled": false
 	},
-	"domain": "arl.lambda.cam"
+	"domain": "zomium.xyz"
 }
