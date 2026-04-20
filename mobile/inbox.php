@@ -1,1 +1,0 @@
-<?php echo "You can use DISCORD you know."; ?>
