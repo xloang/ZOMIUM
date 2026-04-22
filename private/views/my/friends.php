@@ -3,7 +3,7 @@
 	use anorrl\User;
 	use anorrl\Database;
 
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 
 	$fetch = Database::singleton()->run(
 		"SELECT * FROM `friends` WHERE (`sender` = :id OR `reciever` = :id) ORDER BY `status` ASC",

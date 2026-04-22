@@ -9,7 +9,7 @@
 		$type = trim(strtolower($type));
 	}
 
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 
 	$validtypes = [
 		"hats",

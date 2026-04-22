@@ -12,8 +12,8 @@
 	$id = intval($_GET['id']);
 
 	$asset = Asset::FromID($id);
-	$user = SESSION->user;
-	$domain = CONFIG->domain;
+	$user = $GLOBALS['__session']->user;
+	$domain = $GLOBALS['__config']->domain;
 
 	if($asset != null) {
 

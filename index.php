@@ -1,7 +1,7 @@
 <?php
 	// lifted from pixie - by parakeet
 
-	define('CONFIG', json_decode(file_get_contents(__DIR__."/../settings.json")));
+	require_once __DIR__ . "/private/bootstrap.php";
 
 	require __DIR__ . "/vendor/autoload.php";
 
@@ -21,6 +21,8 @@
 	} else {
 		define('SESSION', false);
 	}
+
+	$GLOBALS['__session'] = SESSION;
 	
 	require_once __DIR__ . "/router.php";
 

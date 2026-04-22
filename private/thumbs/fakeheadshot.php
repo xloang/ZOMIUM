@@ -13,7 +13,7 @@
 		$user = User::FromID(1);
 	}
 
-	$domain = CONFIG->domain;
+	$domain = $GLOBALS['__config']->domain;
 	$thumbsurl = $user->getThumbsUrlService($user->setprofilepicture ? "profile" : "headshot");
 
 	die(json_encode([

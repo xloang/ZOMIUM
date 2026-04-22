@@ -1,8 +1,8 @@
 <?php
 	use anorrl\Page;
 
-	$user = SESSION->user;
-	$settings = SESSION->settings;
+	$user = $GLOBALS['__session']->user;
+	$settings = $GLOBALS['__session']->settings;
 
 	if(isset($_POST['ANORRL$Update$Profile$Bio']) &&
 	   isset($_POST['ANORRL$Update$Profile$Submit'])) {
@@ -21,7 +21,7 @@
 	if(isset($_POST['ANORRL$Update$Profile$BGM']) &&
 	   isset($_POST['ANORRL$Update$Profile$BGM$Submit'])) {
 		
-		SESSION->settings->setBackgroundMusic(intval(trim($_POST['ANORRL$Update$Profile$BGM'])));
+		$GLOBALS['__session']->settings->setBackgroundMusic(intval(trim($_POST['ANORRL$Update$Profile$BGM'])));
 
 		die(header("Location: /my/profile"));
 	}
@@ -29,7 +29,7 @@
 	if(isset($_POST['ANORRL$Update$Profile$CSS']) &&
 	   isset($_POST['ANORRL$Update$Profile$CSS$Submit'])) {
 		
-		$result = SESSION->settings->setCSS(trim($_POST['ANORRL$Update$Profile$CSS']));
+		$result = $GLOBALS['__session']->settings->setCSS(trim($_POST['ANORRL$Update$Profile$CSS']));
 
 		if(!$result) {
 			$_SESSION['ANORRL$Update$ProfileError'] = true;
@@ -120,7 +120,7 @@
 		<h3>User Profile CSS</h3>
 		<div id="FormStuff">
 			<span>Ok so this is where you can change your profile stuff... have a go i guess?</span>
-			<textarea name="ANORRL$Update$Profile$CSS"><?= SESSION->settings->css; ?></textarea>
+			<textarea name="ANORRL$Update$Profile$CSS"><?= $GLOBALS['__session']->settings->css; ?></textarea>
 			<input type="submit" value="Update" name="ANORRL$Update$Profile$CSS$Submit">
 		</div>
 	</div>

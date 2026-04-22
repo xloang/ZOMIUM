@@ -3,7 +3,7 @@
 	use anorrl\User;
 	
 	if(isset($_GET['access']) && isset($_GET['jobID']) && isset($_GET['userID'])) {
-		if($_GET['access'] == CONFIG->asset->key) {
+		if($_GET['access'] == $GLOBALS['__config']->asset->key) {
 			$gameserver = GameServer::GetFromJobID($_GET['jobID']);
 
 			$user = User::FromID(intval($_GET['userID']));

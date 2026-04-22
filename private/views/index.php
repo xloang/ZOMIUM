@@ -8,9 +8,9 @@
 	$page->addStylesheet("/css/new/frontpage.css?v=6");
 	$page->loadHeader();
 
-	$settings = SESSION ? SESSION->settings : UserSettings::Get();
+	$settings = SESSION ? $GLOBALS['__session']->settings : UserSettings::Get();
 
-	$video_splash = new FileSplasher("videos", false, "JaneVideos")->getRandomSplash()
+	$video_splash = (new FileSplasher("videos", false, "JaneVideos"))->getRandomSplash();
 ?>
 <div id="IntroductoryArea">
 	<h2>&nbsp;</h2>

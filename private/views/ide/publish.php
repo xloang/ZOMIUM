@@ -4,7 +4,7 @@
 	if(!SESSION)
 		die("Hey have you tried logging in before doing this? <br><a href='javascript:window.close()'>No...</a>");
 	else 
-		$user = SESSION->user;
+		$user = $GLOBALS['__session']->user;
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,7 +17,7 @@
 		<script src="/public/js/main.js?t=1776250887"></script>
 		<script src="/public/js/publish.js"></script>
 	</head>
-	<body domain="<?= CONFIG->domain ?>">
+	<body domain="<?= $GLOBALS['__config']->domain ?>">
 		<div id="Container">
 			<div id="Body">
 				<div id="BodyContainer">

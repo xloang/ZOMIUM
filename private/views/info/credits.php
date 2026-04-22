@@ -4,7 +4,7 @@
 	use anorrl\Page;
 	use anorrl\User;
 
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 
 	$excludelist = [
 		1

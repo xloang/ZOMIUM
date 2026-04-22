@@ -38,7 +38,7 @@
 		return null;
 	}
 
-	$domain = CONFIG->domain;
+	$domain = $GLOBALS['__config']->domain;
 ?>
 <?php if(!isset($_GET['serverToken']) && !isset($_GET['sessionToken']) && !isset($_GET['server'])):
 	$joinscript = [

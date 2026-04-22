@@ -5,15 +5,22 @@
 	use anorrl\utilities\FileSplasher;
 	use anorrl\utilities\UtilUtils;
 
-	$header_check_user = SESSION ? SESSION->user : null;
+	$header_check_user = SESSION ? $GLOBALS['__session']->user : null;
 
-	$rand_pic = new Splasher(UtilUtils::GetFilesArray("/public/images/randoms/"), false, "RandomImages")->getRandomSplash();
-	$rand_splash_pic = new Splasher(UtilUtils::GetFilesArray("/public/images/splashes/"), false, "SplashScreen")->getRandomSplash();
+	$rand_pic = (new Splasher(UtilUtils::GetFilesArray("/public/images/randoms/"), false, "RandomImages"))->getRandomSplash();
+	$rand_splash_pic = (new Splasher(UtilUtils::GetFilesArray("/public/images/splashes/"), false, "SplashScreen"))->getRandomSplash();
 
-	$randomsignsplash = new FileSplasher("sign")->getRandomSplash();
+	$randomsignsplash = (new FileSplasher("sign"))->getRandomSplash();
 
-	$splashscreencaptions = file($_SERVER["DOCUMENT_ROOT"]."/private/splashes/screens.txt");
-	$splashscreencaption = $splashscreencaptions[str_replace(["ANORRLStudioSplash-", ".png"], "", $rand_splash_pic)-1];
+	$splashscreencaptions_path = $_SERVER["DOCUMENT_ROOT"]."/private/splashes/screens.txt";
+	$splashscreencaptions = is_file($splashscreencaptions_path)
+		? file($splashscreencaptions_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)
+		: [];
+	$splash_index = intval(str_replace(["ANORRLStudioSplash-", ".png"], "", $rand_splash_pic)) - 1;
+	$splashscreencaption = $splashscreencaptions[$splash_index] ?? "Welcome back.";
+	$rand_splash_src = strlen($rand_splash_pic) != 0
+		? "/public/images/splashes/{$rand_splash_pic}"
+		: "/public/images/header/logo.png";
 	
 	if(session_status() == PHP_SESSION_NONE)
 		session_start();
@@ -25,7 +32,7 @@
 	//because the night background can override the user's background
 	$hasBackground = false;
 
-	$userCSS = isset($get_user) ? UserSettings::Get($get_user)->css : (SESSION ? SESSION->settings->css : "");
+	$userCSS = isset($get_user) ? UserSettings::Get($get_user)->css : (SESSION ? $GLOBALS['__session']->settings->css : "");
 	if (!empty($userCSS) && preg_match('/background\s*:/i', $userCSS)) {
 		$hasBackground = true;
 	}
@@ -142,7 +149,7 @@
 		<?php if($this->settings->loadingscreens_enabled && !ClientDetector::IsAClient()): ?>
 		<div id="LoadingScreen">
 			<div>
-				<img src="/public/images/splashes/<?= $rand_splash_pic ?>" splash>
+				<img src="<?= $rand_splash_src ?>" splash>
 				<p caption><?= $splashscreencaption?></p>
 				<p id="LoadingText">Loading <?= $this->title ?>...</p>
 				<img src="/public/images/spinner100x100_white.gif" loading>
@@ -156,13 +163,13 @@
 			}
 		</style>
 		<?php endif ?>
-		<?php if($this->settings->randoms_enabled): ?>
+		<?php if($this->settings->randoms_enabled && strlen($rand_pic) != 0): ?>
 		<img src="/public/images/randoms/<?= $rand_pic ?>" style="position: fixed;bottom: 0px;left: 0px;width: 250px;z-index: 9999;pointer-events: none;">
 		<?php endif ?>
 		<?php if($this->settings->teto_enabled): ?>
 		<div id="TetoContainer">
 			<div id="TetoSplashContainer">
-				<p id="TetoSplash"><?= new FileSplasher("teto")->getRandomSplash(); ?></p>
+				<p id="TetoSplash"><?= (new FileSplasher("teto"))->getRandomSplash(); ?></p>
 			</div>
 			<img id="Teto" src="/public/images/tetospeech.png">
 		</div>

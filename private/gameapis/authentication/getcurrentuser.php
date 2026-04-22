@@ -1,1 +1,1 @@
-<?php echo SESSION ? SESSION->user->id : -1; ?>
+<?php echo SESSION ? $GLOBALS['__session']->user->id : -1; ?>

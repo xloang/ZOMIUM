@@ -17,7 +17,7 @@
 				]
 			));
 		} else {
-			$user = SESSION->user;
+			$user = $GLOBALS['__session']->user;
 
 			if($user != null) {
 				die(json_encode(
@@ -29,7 +29,7 @@
 			} 
 		}
 	} else {
-		$user = SESSION->user;
+		$user = $GLOBALS['__session']->user;
 
 		if($user != null) {
 			die(json_encode(

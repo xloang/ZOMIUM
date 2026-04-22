@@ -1,7 +1,7 @@
 <?php
 	use anorrl\Asset;
 
-	$user = SESSION ? SESSION->user : null;
+	$user = SESSION ? $GLOBALS['__session']->user : null;
 
 	header("Content-Type: application/json");
 

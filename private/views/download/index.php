@@ -2,7 +2,7 @@
 	use anorrl\Page;
 	use anorrl\utilities\FileSplasher;
 
-	$randomsplash = new FileSplasher("client")->getRandomSplash();
+	$randomsplash = (new FileSplasher("client"))->getRandomSplash();
 
 	$page = new Page("Download", "download/index");
 	$page->addStylesheet("/css/new/download.css");

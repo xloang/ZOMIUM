@@ -3,7 +3,7 @@
 		"hostname": "localhost",
 		"username": "root",
 		"password": "",
-		"name": "anorrldb"
+		"name": "zomiumdb"
 	},
 	"asset": {
 		"key": "uuid or something",

@@ -25,7 +25,7 @@
 		die(header("Location: /my/home"));
 	}
 
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 
 	$header_data = $get_user;
 
@@ -47,7 +47,7 @@
 	$comments = Comment::GetCommentsOn($get_user);
 	$comments_count = count($comments);
 
-	$settings = SESSION->settings;
+	$settings = $GLOBALS['__session']->settings;
 
     $bgm = $get_user->getSettings()->background_music;
 	if($bgm && !$bgm->isUsable()) {

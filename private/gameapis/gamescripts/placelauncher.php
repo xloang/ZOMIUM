@@ -29,8 +29,8 @@
 	}
 
 	function createResponse(GameServer $server, GameSession $session) {
-		$domain = CONFIG->domain;
-		$arbiter_pub_ip = CONFIG->arbiter->location->public;
+		$domain = $GLOBALS['__config']->domain;
+		$arbiter_pub_ip = $GLOBALS['__config']->arbiter->location->public;
 
 		$security = urlencode(base64_encode($session->player->security_key));
 
@@ -159,10 +159,10 @@
 
 		} else if($_GET['request'] == "CloudEdit" && isset($_GET['placeId'])) {
 
-			$domain = CONFIG->domain;
+			$domain = $GLOBALS['__config']->domain;
 			
 			$place = Place::FromID(intval($_GET['placeId']));
-			$user = SESSION ? SESSION->user : null;
+			$user = SESSION ? $GLOBALS['__session']->user : null;
 
 			if(!$place || !$user)
 				errorOut(1);
@@ -193,7 +193,7 @@
 					"status" => 2,
 					"settings" => [
 						"ClientPort" => 0,
-						"MachineAddress" => CONFIG->arbiter->location->public,
+						"MachineAddress" => $GLOBALS['__config']->arbiter->location->public,
 						"ServerPort" => $port,
 						"PingUrl" => "",
 						"PingInterval" => 120,

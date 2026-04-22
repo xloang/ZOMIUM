@@ -3,7 +3,7 @@
 	use anorrl\Page;
 	use anorrl\utilities\FileSplasher;
 
-	$randomsplash = new FileSplasher("games")->getRandomSplash();
+	$randomsplash = (new FileSplasher("games"))->getRandomSplash();
 
 	$page = new Page("Games");
 

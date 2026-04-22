@@ -1,7 +1,7 @@
 <?php
-	if(isset(CONFIG->secret)) {
-		if(isset($_GET[CONFIG->secret->partone]) && $_GET[CONFIG->secret->partone] == CONFIG->secret->parttwo) {
-			setcookie('ANORRL$Hidden$Cookie$yaya', CONFIG->secret->token, time() + (460800* 30), "/", ".lambda.cam");
+	if(isset($GLOBALS['__config']->secret)) {
+		if(isset($_GET[$GLOBALS['__config']->secret->partone]) && $_GET[$GLOBALS['__config']->secret->partone] == $GLOBALS['__config']->secret->parttwo) {
+			setcookie('ANORRL$Hidden$Cookie$yaya', $GLOBALS['__config']->secret->token, time() + (460800* 30), "/", ".lambda.cam");
 			die(header("Location: /register"));
 		}
 	}

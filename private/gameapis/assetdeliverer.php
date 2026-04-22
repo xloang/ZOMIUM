@@ -21,10 +21,10 @@
 		return $file_info->buffer($contents);
 	}
 
-	$access = CONFIG->asset->key;
-	$domain = CONFIG->domain;
+	$access = $GLOBALS['__config']->asset->key;
+	$domain = $GLOBALS['__config']->domain;
 	
-	$user = SESSION ? SESSION->user : null;
+	$user = SESSION ? $GLOBALS['__session']->user : null;
 
 	$asset = Asset::FromID($id);
 	if($asset != null) {
@@ -51,7 +51,8 @@
 					}
 
 					if($error) {
-						if(!($_SERVER['HTTP_USER_AGENT'] == "ANORRL/WinInet" || $_SERVER['HTTP_USER_AGENT'] == "Roblox/WinHttp"))
+						$user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+						if(!($user_agent == "ANORRL/WinInet" || $user_agent == "Roblox/WinHttp"))
 							die(http_response_code(503));
 					}
 				}
@@ -93,8 +94,8 @@
 			die("Asset not found!");
 		}
 	} else {
-		$roblosec = CONFIG->asset->roblosec;
-		if(CONFIG->asset->canforward && strlen(trim($roblosec)) != 0) {
+		$roblosec = $GLOBALS['__config']->asset->roblosec;
+		if($GLOBALS['__config']->asset->canforward && strlen(trim($roblosec)) != 0) {
 			
 
 			if(isset($_GET['version'])) {

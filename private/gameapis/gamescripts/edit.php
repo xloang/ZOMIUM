@@ -67,10 +67,10 @@ game:GetService("ChangeHistoryService"):SetEnabled(true)
 
 	header("Content-Type: text/plain");
 
-	$domain = CONFIG->domain;
+	$domain = $GLOBALS['__config']->domain;
 
 	if(SESSION) {
-		$user = SESSION->user;
+		$user = $GLOBALS['__session']->user;
 	
 		if(isset($_GET['placeId'])) {
 			$place = Place::FromID(intval($_GET['placeId']));

@@ -22,11 +22,11 @@
 		}
 
 		private function __construct() {
-			$config_location = explode(":", \CONFIG->arbiter->location->private);
+			$config_location = explode(":", $GLOBALS['__config']->arbiter->location->private);
 
 			$this->location = $config_location[0];
 			$this->port = intval($config_location[1]);
-			$this->token = strtoupper(hash("sha256", \CONFIG->arbiter->token));
+			$this->token = strtoupper(hash("sha256", $GLOBALS['__config']->arbiter->token));
 		}
 
 		public function request(string $endpoint, array $data = [], bool $post = true): Object|null {

@@ -2,7 +2,7 @@
 	use anorrl\Page;
 	use anorrl\Status;
 
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 
 	if(isset($_POST['ANORRL$Home$Status$Text']) &&
 	   isset($_POST['ANORRL$Home$Status$Submit'])) {

@@ -223,12 +223,27 @@
 
 		static function SetCookies(string $security): void {
 			unset($_COOKIE['ANORRLSECURITY']);
-			setcookie("ANORRLSECURITY", $security, time() + (460800* 30), "/", ".lambda.cam");
+			$expires = time() + (460800 * 30);
+			$host = trim(explode(':', $_SERVER['HTTP_HOST'] ?? ($GLOBALS['__config']->domain ?? 'localhost'))[0]);
+			$is_local = $host === '' || $host === 'localhost' || filter_var($host, FILTER_VALIDATE_IP);
+
+			if($is_local) {
+				setcookie("ANORRLSECURITY", $security, $expires, "/");
+			} else {
+				setcookie("ANORRLSECURITY", $security, $expires, "/", "." . ltrim($host, "."));
+			}
 		}
 
 		public static function RemoveCookies(): void {
 			unset($_COOKIE['ANORRLSECURITY']);
-			setcookie("ANORRLSECURITY", "", -1, "/", ".lambda.cam");
+			$host = trim(explode(':', $_SERVER['HTTP_HOST'] ?? ($GLOBALS['__config']->domain ?? 'localhost'))[0]);
+			$is_local = $host === '' || $host === 'localhost' || filter_var($host, FILTER_VALIDATE_IP);
+
+			if($is_local) {
+				setcookie("ANORRLSECURITY", "", -1, "/");
+			} else {
+				setcookie("ANORRLSECURITY", "", -1, "/", "." . ltrim($host, "."));
+			}
 		}
 
 		public static function GetRandomUsers(int $count): array {

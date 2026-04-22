@@ -3,7 +3,7 @@
 
 	use anorrl\enums\AssetType;
 
-	$user = SESSION ? SESSION->user : null;
+	$user = SESSION ? $GLOBALS['__session']->user : null;
 
 	if($user != null) {
 

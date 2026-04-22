@@ -12,7 +12,7 @@ end)
 <?php
 	use anorrl\Place;
 
-	$domain = CONFIG->domain;
+	$domain = $GLOBALS['__config']->domain;
 	
 	function get_signature($script) {
 		$signature = "";

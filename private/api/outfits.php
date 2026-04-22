@@ -3,7 +3,7 @@
 	header("Content-Type: application/json");
 
 	if(SESSION) {
-		$user = SESSION->user;
+		$user = $GLOBALS['__session']->user;
 		if(isset($_POST['create'])) {
 			
 		}

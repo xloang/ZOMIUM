@@ -8,7 +8,7 @@
 		die("Hey have you tried logging in before doing this? <br><a href='javascript:window.close()'>No...</a>");
 	}
 
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 
 	function FunnyBoolToStr(bool $value) {
 		return $value ? "True" : "False";

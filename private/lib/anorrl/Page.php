@@ -31,7 +31,7 @@
 			$this->addStylesheet("/css/new/main.css?v=3");
 
 			if(SESSION) {
-				$this->settings = SESSION->settings;
+				$this->settings = $GLOBALS['__session']->settings;
 			}
 			else {
 				$this->settings = UserSettings::Get();
@@ -41,8 +41,8 @@
 				$this->addStylesheet("/css/new/teto.css?v=1");
 			}
 
-			if(SESSION && SESSION->user && $_SERVER['SCRIPT_NAME'] != "/users/profile.php") {
-				$user_id = SESSION->user->id;
+			if(SESSION && $GLOBALS['__session']->user && $_SERVER['SCRIPT_NAME'] != "/users/profile.php") {
+				$user_id = $GLOBALS['__session']->user->id;
 				$time = time();
 
 				$this->addStylesheet("/users/$user_id/css?t=$time", false);

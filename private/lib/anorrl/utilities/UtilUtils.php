@@ -53,7 +53,22 @@
 		}
 
 		public static function GetFilesArray(string $folder_location) {
-			return array_diff(scandir($_SERVER['DOCUMENT_ROOT'].$folder_location, SCANDIR_SORT_NONE), ["..", "."]);
+			$path = rtrim($_SERVER['DOCUMENT_ROOT'], "/\\") . '/' . ltrim($folder_location, "/\\");
+			$path = str_replace("\\", "/", $path);
+
+			if(!is_dir($path)) {
+				return [];
+			}
+
+			$files = scandir($path, SCANDIR_SORT_NONE);
+			if($files === false) {
+				return [];
+			}
+
+			return array_values(array_filter(
+				$files,
+				fn($file) => $file !== "." && $file !== ".." && is_file($path . "/" . $file)
+			));
 		}
 
 		/**
@@ -63,7 +78,7 @@
 		 * @return int
 		 */
 		public static function GetTimeDifference(\DateTime $time, string $format = "%a"): int {
-			return intval(new \DateTime()->diff($time)->format($format));
+			return intval((new \DateTime())->diff($time)->format($format));
 		}
 
 		public static function IsValidCSS(string $data) {

@@ -7,7 +7,7 @@ use anorrl\User;
 	use anorrl\Asset;
 	use anorrl\utilities\Renderer;
 
-	$user = SESSION ? SESSION->user : null;
+	$user = SESSION ? $GLOBALS['__session']->user : null;
 
 	function performRender(User $user, string $mediadir, string $charactermd5, bool $headshot = false, bool $is3D = false) {
 		$render = Renderer::RenderUser($user->id, false, $is3D);

@@ -7,7 +7,7 @@
 		die(json_encode(["error" => true, "message" => "User is not logged in."]));
 
 
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 	if(!$user->isBanned() && isset($_POST['asset_id'])) {
 		$asset = Asset::FromID(intval($_POST['asset_id']));
 

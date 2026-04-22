@@ -8,7 +8,7 @@
 		$user = User::FromID(intval($_GET['id']));
 		$selfuser = false;
 		if($user == null) {
-			$user = SESSION ? SESSION->user : null;
+			$user = SESSION ? $GLOBALS['__session']->user : null;
 			$selfuser = true;
 		}
 
@@ -55,7 +55,7 @@
 		$user = User::FromID(intval($_POST['id']));
 		$selfuser = false;
 		if($user == null) {
-			$user = SESSION ? SESSION->user : null;
+			$user = SESSION ? $GLOBALS['__session']->user : null;
 			$selfuser = true;
 		}
 
@@ -63,7 +63,7 @@
 		if($user != null) {
 			
 			if($_POST['request'] == "follow" && !$selfuser) {
-				$founduser = SESSION ? SESSION->user : null;
+				$founduser = SESSION ? $GLOBALS['__session']->user : null;
 
 				if($founduser != null) {
 					if($founduser->id != $user->id) {
@@ -77,7 +77,7 @@
 					}
 				}
 			} else if($_POST['request'] == "friend" && !$selfuser) {
-				$founduser = SESSION ? SESSION->user : null;
+				$founduser = SESSION ? $GLOBALS['__session']->user : null;
 
 				if($founduser != null) {
 					if($founduser->id != $user->id) {
@@ -91,7 +91,7 @@
 					}
 				}
 			} else if($_POST['request'] == "unfriend" && !$selfuser) {
-				$founduser = SESSION ? SESSION->user : null;
+				$founduser = SESSION ? $GLOBALS['__session']->user : null;
 
 				if($founduser != null) {
 					if($founduser->id != $user->id) {

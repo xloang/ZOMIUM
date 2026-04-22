@@ -8,7 +8,7 @@
 	//?category=FreeModels&keyword=&num=30&page=1&sort=Relevance
 
 	$validresponse = false;
-	$domain = CONFIG->domain;
+	$domain = $GLOBALS['__config']->domain;
 
 	if(
 		isset($_GET['category']) &&

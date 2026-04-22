@@ -2,8 +2,8 @@
 	use anorrl\GameServer;
 	use anorrl\Place;
 
-	$user = SESSION->user;
-	$domain = CONFIG->domain;
+	$user = $GLOBALS['__session']->user;
+	$domain = $GLOBALS['__config']->domain;
 
 	// suddenly i dont care about sessions in this api
 	// move to old roblox standard for easier TeleportService shenanigans

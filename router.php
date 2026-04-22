@@ -8,12 +8,12 @@
 	function route($method, $path, $file) {
 		global $router;
 		$router->map($method, $path, function(...$params) use ($path, $file) {
-			$secret_enabled = isset(CONFIG->secret);
+			$secret_enabled = isset($GLOBALS['__config']->secret);
 			if(
 				$secret_enabled &&
 				str_starts_with($file, "/private/views/") &&
 				(!isset($_COOKIE['ANORRL$Hidden$Cookie$yaya']) || 
-				(isset($_COOKIE['ANORRL$Hidden$Cookie$yaya']) && $_COOKIE['ANORRL$Hidden$Cookie$yaya'] != CONFIG->secret->token))) {
+				(isset($_COOKIE['ANORRL$Hidden$Cookie$yaya']) && $_COOKIE['ANORRL$Hidden$Cookie$yaya'] != $GLOBALS['__config']->secret->token))) {
 						
 					if($path != "/goodbye")
 						die(header("Location: /goodbye"));
@@ -48,7 +48,7 @@
 			
 			if(str_ends_with($file, ".json") || str_ends_with($file, ".js")) {
 				$file = file_get_contents(__DIR__.$file);
-				$file = str_replace("{domain}", CONFIG->domain, $file);
+				$file = str_replace("{domain}", $GLOBALS['__config']->domain, $file);
 
 				echo $file;
 			} else {
@@ -77,7 +77,7 @@
 	//route('GET',      '/test', '/private/views/test.php');
  
 	route('GET',      '/', '/private/views/index.php');
-	if(isset(CONFIG->secret))
+	if(isset($GLOBALS['__config']->secret))
 		route('GET',      '/goodbye', '/private/views/goodbye.php');
 
 	route('GET',      '/index', '/private/views/index.php');

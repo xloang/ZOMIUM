@@ -9,10 +9,10 @@
 	use anorrl\Page;
 	use anorrl\Place;
 
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 
 	$asset = Place::FromID($id);
-	$domain = CONFIG->domain;
+	$domain = $GLOBALS['__config']->domain;
 
 	if($asset != null) {
 		

@@ -1,5 +1,7 @@
 <?php
 	namespace anorrl;
+
+	require_once dirname(__DIR__, 2) . "/bootstrap.php";
 	
 	/**
 	 * Lifted from fubuki by parakeet
@@ -18,12 +20,22 @@
 		}
 
 		function __construct() {
+			$database_config = $GLOBALS['__config']->database ?? null;
+			$hostname = trim((string)($database_config->hostname ?? 'localhost'));
+			$database = trim((string)($database_config->name ?? ''));
+			$port = intval($database_config->port ?? 3306);
+
+			if($database === '') {
+				throw new \RuntimeException("Database name is missing in settings.json.");
+			}
+
 			$this->pdo = new \PDO(
-				"mysql:host=" . \CONFIG->database->hostname . ";
-				dbname=" . \CONFIG->database->name . ";
+				"mysql:host=" . $hostname . ";
+				port=" . $port . ";
+				dbname=" . $database . ";
 				charset=utf8mb4", 
-				\CONFIG->database->username, 
-				\CONFIG->database->password
+				(string)($database_config->username ?? 'root'), 
+				(string)($database_config->password ?? '')
 			);
 
 			$this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);

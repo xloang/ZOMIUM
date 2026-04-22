@@ -10,13 +10,13 @@
 		$userid = intval($_GET['userId']);
 	} else {
 		if(SESSION)
-			$userid = SESSION->user->id;
+			$userid = $GLOBALS['__session']->user->id;
 	}
 
 	$user = User::FromID($userid);
 
 	if(!$user && SESSION) {
-		$user = SESSION->user;
+		$user = $GLOBALS['__session']->user;
 	}
 
 	if(!$user)

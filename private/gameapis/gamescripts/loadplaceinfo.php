@@ -10,7 +10,7 @@ pcall(function() game:GetService("GamePassService"):SetPlayerHasPassUrl("http://
 <?php
 	use anorrl\Place;
 
-	$domain = CONFIG->domain;
+	$domain = $GLOBALS['__config']->domain;
 
 	function get_signature($script) {
 		$signature = "";

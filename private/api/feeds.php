@@ -4,7 +4,7 @@
 	use anorrl\Status;
 	use anorrl\utilities\UtilUtils;
 
-	$user = SESSION ? SESSION->user : null;
+	$user = SESSION ? $GLOBALS['__session']->user : null;
 
 	if($user != null) {
 

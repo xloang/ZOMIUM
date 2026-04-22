@@ -9,7 +9,7 @@
 	$usertoadd_id = intval($_GET['userId']);
 
 	$place = Place::FromID($place_id);
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 
 	if($place != null && $user != null && ($user->id == $place->creator->id || $user->isAdmin())) {
 		$userToAdd = User::FromID($usertoadd_id);

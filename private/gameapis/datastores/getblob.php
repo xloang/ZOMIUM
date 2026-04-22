@@ -69,7 +69,7 @@
 		$place = Place::FromID(intval($_GET['placeid']));
 		$user = User::FromID(intval($_GET['userid']));
 
-		if($place != null && $user != null && !$user->isBanned() && CONFIG->asset->key == $_GET['access']) {
+		if($place != null && $user != null && !$user->isBanned() && $GLOBALS['__config']->asset->key == $_GET['access']) {
 
 			include $_SERVER['DOCUMENT_ROOT']."/private/connection.php";
 

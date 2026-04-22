@@ -6,7 +6,7 @@
 	header("Pragma: no-cache");
 	header("Content-Type: application/json");
 
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 	
 	if(isset($_GET['userId']) && isset($_GET['followerUserId'])) {
 		$user = User::FromID(intval($_GET['userId']));

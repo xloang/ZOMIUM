@@ -6,9 +6,9 @@
 	use anorrl\enums\AssetType;
 	use anorrl\utilities\AssetUploader;
 	
-	$access = CONFIG->asset->key;
+	$access = $GLOBALS['__config']->asset->key;
 	
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 
 	function FunnyStrToBool(string $value): bool {
 		return $value == "True";

@@ -4,7 +4,7 @@
 	use anorrl\utilities\ClientDetector;
 	use anorrl\utilities\UtilUtils;
 
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 
 	$isclient = ClientDetector::IsAClient();
 	if(!$isclient)
@@ -13,9 +13,9 @@
 	$places = $user->getPlaces(false);
 	$teamplaces = $user->getPlaces(true);
 
-	$domain = CONFIG->domain;
+	$domain = $GLOBALS['__config']->domain;
 
-	$splash = new FileSplasher("didyouknow")->getRandomSplash();
+	$splash = (new FileSplasher("didyouknow"))->getRandomSplash();
 
 	$page = new Page("ANORRL Studio");
 	$page->clearAll();

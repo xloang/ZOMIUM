@@ -21,7 +21,7 @@
 		die(header("Location: /my/home"));
 	}
 
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 
 	$header_data = $get_user;
 

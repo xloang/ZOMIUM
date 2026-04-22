@@ -720,7 +720,7 @@
 			$leftarmcolour = $colours['leftarm'];
 			$rightlegcolour = $colours['rightleg'];
 			$torsocolour = $colours['torso'];
-			$domain = \CONFIG->domain;
+			$domain = $GLOBALS['__config']->domain;
 
 			return <<<EOT
 			<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://$domain/roblox.xsd" version="4">
@@ -742,7 +742,7 @@
 		}
 
 		function getCharacterAppearance(): string {
-			$domain = \CONFIG->domain;
+			$domain = $GLOBALS['__config']->domain;
 			$getwearing = $this->getWearing();
 
 			$userId = $this->id;
@@ -761,7 +761,7 @@
 		}
 
 		function getCharacterAppearanceVerbose(): string {
-			$domain = \CONFIG->domain;
+			$domain = $GLOBALS['__config']->domain;
 			$bodycoloursxml = $this->getBodyColoursXML();
 			$getwearing = $this->getWearingArray(true);
 
@@ -1312,7 +1312,7 @@
 		 */
 		function getThumbsUrl(int $size_x = -1, int $size_y = -1): string {
 			if(\SESSION)
-				$settings = \SESSION->settings;
+				$settings = $GLOBALS['__session']->settings;
 			else
 				$settings = UserSettings::Get();
 
@@ -1432,7 +1432,12 @@
 
 		function getRecentlyPlayedGames(int $limit = 2): array {
 			$rows = Database::singleton()->run(
-				"SELECT DISTINCT `place` FROM `visits` WHERE `player` = :id ORDER BY `time` DESC LIMIT :limit", 
+				"SELECT `place`, MAX(`time`) AS `last_visit`
+				FROM `visits`
+				WHERE `player` = :id
+				GROUP BY `place`
+				ORDER BY `last_visit` DESC
+				LIMIT :limit", 
 				[
 					":id" => $this->id,
 					":limit" => $limit

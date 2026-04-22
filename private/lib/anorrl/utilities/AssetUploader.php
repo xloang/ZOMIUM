@@ -139,11 +139,11 @@
 		}
 
 		private static function PushWebhook(Asset $asset) {
-			if(strlen(trim(\CONFIG->asset->webhook)) == 0 || !str_starts_with(\CONFIG->asset->webhook, "https://discord.com/api/webhooks/")) {
+			if(strlen(trim($GLOBALS['__config']->asset->webhook)) == 0 || !str_starts_with($GLOBALS['__config']->asset->webhook, "https://discord.com/api/webhooks/")) {
 				return;
 			}
-			$webhook_url = trim(\CONFIG->asset->webhook);
-			$domain = \CONFIG->domain;
+			$webhook_url = trim($GLOBALS['__config']->asset->webhook);
+			$domain = $GLOBALS['__config']->domain;
 			
 			$msg = [
 				"username" => "Catalog Hotline",

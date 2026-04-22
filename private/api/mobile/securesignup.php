@@ -5,7 +5,7 @@
 	[password] => BALLS123
 	[gender] => Female
 	[dateOfBirth] => 12/31/2008
-	[email] => penis@lambda.cam
+	[email] => penis@zomium.xyz
 */
 
 	use anorrl\utilities\UserUtils;
@@ -22,13 +22,13 @@
 		$password = trim($_POST['password']);
 		$email = trim($_POST['email']); // not actually email but yeah
 
-		if(!str_ends_with($email, "@lambda.cam")) {
+		if(!str_ends_with($email, "@zomium.xyz")) {
 			die(json_encode([
 				"Status" => "Invalid Characters Used"
 			]));
 		} else {
 			if(UserUtils::IsUsernameValid($username)) {
-				$result = UserUtils::RegisterUser($username, $password, $password, str_replace("@lambda.cam", "", $email));
+				$result = UserUtils::RegisterUser($username, $password, $password, str_replace("@zomium.xyz", "", $email));
 
 				if($result == "success") {
 					die(json_encode([

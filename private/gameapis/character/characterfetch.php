@@ -7,7 +7,7 @@
     header("Cache-Control: post-check=0, pre-check=0", false);
     header("Pragma: no-cache");
 
-	$domain = CONFIG->domain;
+	$domain = $GLOBALS['__config']->domain;
 
     if(isset($_GET['assetId'])): ?>
 http://<?= $domain ?>/Asset/BodyColors.ashx?clothing;http://<?= $domain ?>/asset/?id=<?= $_GET['assetId'] ?>

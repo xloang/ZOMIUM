@@ -89,13 +89,13 @@
 		<div id="AvatarRender">
 			<h4>Avatar Render</h4>
 			<div id="RenderContainer">
-				<?php if(SESSION->user->has3DRender()): ?>
+				<?php if($GLOBALS['__session']->user->has3DRender()): ?>
 				<div class="thumbnail-holder" id="PlayerRender" style="width: 260px; height: 260px; margin: 0 auto;">
-					<span class="thumbnail-span" data-3d-url="/thumbnail/get?userid=<?= SESSION->user->id ?>" style="width: 260px; height: 260px; display: block;">
+					<span class="thumbnail-span" data-3d-url="/thumbnail/get?userid=<?= $GLOBALS['__session']->user->id ?>" style="width: 260px; height: 260px; display: block;">
 					</span>
 				</div>
 				<?php endif ?>
-				<img id="PlayerRender" src="<?= SESSION->user->getThumbsUrlService("player", 260) ?>" width="260" <?php if(SESSION->user->has3DRender()): ?>style="display: none"<?php endif ?>>
+				<img id="PlayerRender" src="<?= $GLOBALS['__session']->user->getThumbsUrlService("player", 260) ?>" width="260" <?php if($GLOBALS['__session']->user->has3DRender()): ?>style="display: none"<?php endif ?>>
 				<div style="margin-top: -10px;margin-bottom: 5px">
 					<button style="width: 105px;">Create Outfit</button>
 					<button style="width: 90px;" onclick="ANORRL.Character.RenderPlayer(true);">Re-Render</button>

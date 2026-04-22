@@ -122,7 +122,7 @@ else
 	message.Text = "Error on visit: " .. err
 end
 <?php
-	$domain = CONFIG->domain;
+	$domain = $GLOBALS['__config']->domain;
 	
 	function get_signature($script)
 	{
@@ -132,7 +132,7 @@ end
 	}    
 	header("Content-Type: text/plain");
 
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 	$username = "Player";
 	$userid = 1;
 	$userage = 0;

@@ -6,7 +6,7 @@
 	header("Pragma: no-cache");
 	header("Content-Type: application/json");
 
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 
 	if(isset($_POST['followedUserId']) && $user != null) {
 		$toFollowUser = User::FromID(intval($_POST['followedUserId']));

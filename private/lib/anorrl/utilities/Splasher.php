@@ -8,15 +8,17 @@
 		public bool $true_random = true;
 		public string $name = "";
 
-		function __construct(array $splashes, bool $true_random = true, string $name) {
+		function __construct(array $splashes, bool $true_random = true, string $name = "") {
 			$this->true_random = $true_random;
-			$this->splashes = $splashes;
+			$this->splashes = array_values(array_filter($splashes, fn($splash) => is_string($splash) && strlen(trim($splash)) != 0));
 
 			if(!$this->true_random && strlen(trim($name)) != 0) {
 				$this->name = "ANORRL\$Splashes\${$name}";
 			}
 
-			shuffle($this->splashes);
+			if(count($this->splashes) > 1) {
+				shuffle($this->splashes);
+			}
 		}
 
 		private function roll() {
@@ -49,6 +51,10 @@
 		}
 
 		function getRandomSplash() {
+			if(count($this->splashes) == 0) {
+				return "";
+			}
+
 			if(!$this->true_random && strlen($this->name) > 0)
 				return $this->roll();
 			else

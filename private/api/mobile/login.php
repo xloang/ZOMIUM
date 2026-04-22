@@ -10,7 +10,7 @@
 		$user = UserUtils::RetrieveUser();
 	}
 
-	$domain = CONFIG->domain;
+	$domain = $GLOBALS['__config']->domain;
 
 	if($result["login"] != "Incorrect details provided!") {
 		echo json_encode([

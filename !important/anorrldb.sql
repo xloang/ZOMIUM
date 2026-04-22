@@ -20,8 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `anorrldb`
 --
-CREATE DATABASE IF NOT EXISTS `anorrldb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `anorrldb`;
+
+USE `zomiumdb`;
 
 -- --------------------------------------------------------
 

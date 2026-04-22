@@ -21,8 +21,8 @@
 
 	header("Content-Type: text/css");
 	
-	if(UtilUtils::IsValidCSS(SESSION->settings->css) || isset($_GET['force'])) {
-		die(SESSION->settings->css);
+	if(UtilUtils::IsValidCSS($GLOBALS['__session']->settings->css) || isset($_GET['force'])) {
+		die($GLOBALS['__session']->settings->css);
 	}
 
 	die();

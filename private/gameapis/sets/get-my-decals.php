@@ -1,7 +1,7 @@
 <?php
 	use anorrl\enums\AssetType;
 
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 
 	$result = [];
 

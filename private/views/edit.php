@@ -11,7 +11,7 @@
 	use anorrl\Place;
 	use anorrl\utilities\UtilUtils;
 
-	$user = SESSION->user;
+	$user = $GLOBALS['__session']->user;
 
 	$id = intval($_GET['id']);
 

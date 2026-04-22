@@ -7,7 +7,7 @@
 	class Renderer {
 
 		private static function DoRender(string $type, array $data) {
-			if(\CONFIG->arbiter->disabled) {
+			if($GLOBALS['__config']->arbiter->disabled) {
 				return null;
 			}
 			

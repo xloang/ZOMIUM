@@ -153,7 +153,7 @@
 				$contents = str_replace("www.roblox.com", "{anorrldomain}",$contents);
 				$contents = str_replace("api.roblox.com", "{anorrldomain}",$contents);
 
-				return str_replace("{anorrldomain}", \CONFIG->domain, $contents);
+				return str_replace("{anorrldomain}", $GLOBALS['__config']->domain, $contents);
 			}
 			
 			return null;
@@ -450,7 +450,7 @@
 
 		function delete() {
 			if(\SESSION) {
-				if(\SESSION->user->isAdmin()) {
+				if($GLOBALS['__session']->user->isAdmin()) {
 					include $_SERVER['DOCUMENT_ROOT']."/private/connection.php";
 					$stmt = $con->prepare('DELETE FROM `inventory` WHERE `assetid` = ?');
 					$stmt -> bind_param("i", $id);
