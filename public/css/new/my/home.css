@@ -303,3 +303,163 @@ h1, h2, h3, h4 {
 	display:block;
 	width: 180px;
 }
+
+/* Finobe-inspired refresh overrides */
+#HelloStuff #UserProfile {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	align-items: stretch;
+	float: none;
+}
+
+#HelloStuff #UserProfile > a img {
+	border: 0;
+	background: #eef2f7;
+	border-radius: 20px;
+	box-shadow: 0 12px 26px rgba(16, 24, 40, 0.12);
+}
+
+#StatusContainer,
+#FriendsContainer #Friends,
+#FeedsContainer #Feeds,
+#FeedsContainer #Pager,
+#FeedsContainer #Submit,
+#RecentlyPlayed #Games,
+#Favourites #Games {
+	border: 1px solid rgba(216, 224, 234, 0.9) !important;
+	background: rgba(255, 255, 255, 0.96) !important;
+	border-radius: 20px;
+	box-shadow: 0 16px 30px rgba(16, 24, 40, 0.08);
+	color: #1f2937;
+}
+
+#StatusContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 18px;
+	width: 260px;
+	height: 200px;
+}
+
+#FriendsContainer {
+	display: block;
+	margin: 20px 0 0;
+}
+
+#FriendsContainer #Friends {
+	height: auto;
+	padding: 16px;
+}
+
+#FriendsContainer #Friends .Friend {
+	border: 1px solid rgba(216, 224, 234, 0.9);
+	background: #f8fafc;
+	border-radius: 18px;
+	box-shadow: none;
+}
+
+#FriendsContainer #Friends .Friend img {
+	border: 0;
+	background: #eef2f7;
+	border-radius: 14px;
+}
+
+#FeedsContainer {
+	display: block;
+	width: auto;
+	margin: 24px 0 0;
+}
+
+#FeedsContainer #Submit {
+	width: auto;
+	padding: 16px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	box-shadow: 0 12px 24px rgba(16, 24, 40, 0.06);
+}
+
+#FeedsContainer #Submit form {
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+#FeedsContainer #Submit input[type=text] {
+	border: 1px solid rgba(216, 224, 234, 0.9);
+	background: #f8fafc;
+	color: #1f2937;
+	border-radius: 14px;
+	padding: 12px 14px;
+	flex: 1 1 320px;
+	width: auto;
+	margin: 0;
+}
+
+#FeedsContainer #Submit input[type=submit] {
+	width: auto;
+	min-width: 160px;
+	font-family: inherit;
+}
+
+#FeedsContainer #Feeds {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+#Feeds #FeedItem #Content code {
+	width: auto;
+	border: 1px solid rgba(216, 224, 234, 0.9);
+	background: rgba(3, 155, 229, 0.05);
+	border-radius: 14px;
+}
+
+#FeedAndGames {
+	float: none;
+	display: grid;
+	grid-template-columns: 240px minmax(0, 1fr);
+	gap: 24px;
+	align-items: start;
+}
+
+#FeedAndGames #ProfileGames {
+	width: auto;
+	float: none;
+}
+
+#RecentlyPlayed #Games .Game,
+#Favourites #Games .Game {
+	padding: 12px;
+	border-bottom: 1px solid rgba(216, 224, 234, 0.9);
+}
+
+#RecentlyPlayed #Games .Game:last-child,
+#Favourites #Games .Game:last-child {
+	border-bottom: 0;
+}
+
+#RecentlyPlayed #Games .Game img,
+#Favourites #Games .Game img {
+	border: 0;
+	border-radius: 14px;
+	box-shadow: 0 8px 16px rgba(16, 24, 40, 0.1);
+}
+
+@media (max-width: 920px) {
+	#FeedAndGames {
+		grid-template-columns: 1fr;
+	}
+
+	#FeedsContainer #Submit form {
+		flex-direction: column;
+	}
+
+	#StatusContainer {
+		width: 100%;
+		height: auto;
+		min-height: 140px;
+	}
+}

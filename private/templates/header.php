@@ -60,6 +60,7 @@
 		<?php foreach($this->stylesheets as $stylesheet): ?>
 		<link rel="stylesheet" href="<?= $stylesheet ?>">
 		<?php endforeach ?>
+		<link rel="stylesheet" href="/public/css/new/finobe-port.css?v=2">
 
 		<?php foreach($this->metas as $meta): ?>
 		<meta property="<?= $meta['type'] ?>" content="<?= $meta['contents'] ?>">
@@ -184,56 +185,73 @@
 		<?php endif ?>
 		<div id="Container">
 			<div id="Header">
-				<?php if($header_check_user != null): 
-					$pendingreqscount = $header_check_user->GetPendingFriendRequestsCount();	
-				?>
-				<div id="ProfileSign" logged="true">
-					<img id="background" src="/public/images/header/signs/profile.png"> <!-- DO NOT FUCKING REMOVE -->
-					<div id="UsernameRow">
-						YOU ARE: <br>
-						<a href="/users/<?= $header_check_user->id ?>/profile"><?= $header_check_user->name ?></a>
+				<?php $pendingreqscount = $header_check_user != null ? $header_check_user->GetPendingFriendRequestsCount() : 0; ?>
+				<nav class="navbar navbar-expand-lg navbar-light bg-faded navbar-static-top">
+					<div class="container">
+						<a href="/" class="navbar-brand">
+							<img src="/public/images/header/logo.png" alt="ANORRL" class="navbar-brandimg">
+							ANORRL
+						</a>
+						<div class="anorrl-navbar-cluster">
+							<ul class="nav navbar-nav mr-auto">
+								<?php if($header_check_user != null): ?>
+								<li class="nav-item"><a href="/users/<?= $header_check_user->id ?>/profile" class="nav-link">Profile</a></li>
+								<?php else: ?>
+								<li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+								<?php endif ?>
+								<li class="nav-item"><a href="/games" class="nav-link">Games</a></li>
+								<li class="nav-item"><a href="/catalog" class="nav-link">Catalog</a></li>
+								<li class="nav-item"><a href="/vandals" class="nav-link">Vandals</a></li>
+								<li class="nav-item"><a href="/download" class="nav-link">Download</a></li>
+								<?php if($header_check_user != null && $header_check_user->isAdmin()): ?>
+								<li class="nav-item"><a href="/Admi" class="nav-link">Admin</a></li>
+								<?php endif ?>
+							</ul>
+							<?php if($header_check_user != null): ?>
+							<ul class="nav navbar-nav my-2 my-lg-0 anorrl-userbar">
+								<li class="nav-item anorrl-userbar-item">
+									<a href="/my/friends" class="nav-link">
+										<img src="/public/images/icons/messages<?= $pendingreqscount == 0 ? "" : "_notify" ?>.png" alt="">
+										<span><?= $pendingreqscount ?> requests</span>
+									</a>
+								</li>
+								<li class="nav-item anorrl-userbar-item">
+									<a href="/my/friends" class="nav-link">
+										<img src="/public/images/icons/friends.png" alt="">
+										<span><?= $header_check_user->getFriendsCount() ?> friends</span>
+									</a>
+								</li>
+								<li class="nav-item anorrl-userbar-item anorrl-userbar-profile">
+									<a href="/users/<?= $header_check_user->id ?>/profile" class="nav-link">
+										<span class="anorrl-userbar-name"><?= $header_check_user->name ?></span>
+										<span class="anorrl-userbar-note"><?= htmlspecialchars($randomsignsplash, ENT_QUOTES) ?></span>
+									</a>
+								</li>
+								<li class="nav-item"><a id="LogoutSign" href="javascript:ANORRL.Logout()" class="nav-link anorrl-logout-link">Logout</a></li>
+							</ul>
+							<?php else: ?>
+							<ul class="nav navbar-nav my-2 my-lg-0">
+								<li class="nav-item"><a href="/login" id="LoginSign" class="nav-link">Login</a></li>
+								<li class="nav-item"><a href="/register" id="RegisterSign" class="nav-link">Register</a></li>
+							</ul>
+							<?php endif ?>
+						</div>
 					</div>
-					<hr>
-					<div id="CreditsRow">
-						<span title="Your pending requests"><a href="/my/friends"><img src="/public/images/icons/messages<?= $pendingreqscount == 0 ? "" : "_notify" ?>.png"> <?= $pendingreqscount ?></a></span> <span class="Separator">|</span>
-						<span title="Your friends"><a href="/my/friends"><img src="/public/images/icons/friends.png"> <?= $header_check_user->getFriendsCount() ?></a></span>
-						<hr>
-						<span title="Message" style="width:auto"><?= $randomsignsplash ?><a href="/public/images/anorrl-smile.png" target="_blank" style="display: block;"><img src="/public/images/anorrl-smile.png" style="width: 42px;margin: 2px 0px;"></a></span>
-					</div>
-				</div>
-				<a id="LogoutSign" href="javascript:ANORRL.Logout()">LOGOUT</a>
-				<?php else: ?>
-				<div id="ProfileSign" logged="false">
-					<img id="background" src="/public/images/header/signs/profile.png"> <!-- DO NOT FUCKING REMOVE -->
-					<a href="/register" id="RegisterSign">Register</a>
-					<img src="/public/images/sign_2way.png" style="width: 72px;padding: 10px 0;padding-top: 30px;padding-bottom:5px;z-index: 2;position: relative;">
-					<a href="/login" id="LoginSign">Login</a>
-				</div>
-				<?php endif ?>
-				<div id="Logo">
-					<a href="/">
-						<img src="/public/images/header/logo.png">
-					</a>
-				</div>
-				
+				</nav>
 				<?php if($header_check_user != null): ?>
-				<div id="Links">
-					<a href="/users/<?= $header_check_user->id ?>/profile">Profile</a>
-					<a href="/games">Games</a>
-					<a href="/catalog">Catalog</a>
-					<a href="/vandals">Vandals</a>
+				<div class="nav-scroller navbar-light bg-faded">
+					<div class="container">
+						<nav class="nav nav-underline nav-scroller-inner" id="UserLinks">
+							<a href="/my/home" class="nav-link" <?php if($this->internal_name == "my/home"): ?>selected<?php endif ?>>Home</a>
+							<a href="/my/profile" class="nav-link" <?php if($this->internal_name == "my/profile"): ?>selected<?php endif ?>>Account</a>
+							<a href="/my/character" class="nav-link" <?php if($this->internal_name == "my/character"): ?>selected<?php endif ?>>Character</a>
+							<a href="/my/friends" class="nav-link" <?php if($this->internal_name == "my/friends"): ?>selected<?php endif ?>>Friends</a>
+							<a href="/create/" class="nav-link" <?php if($this->internal_name == "my/create"): ?>selected<?php endif ?>>Create</a>
+							<a href="/my/stuff" class="nav-link" <?php if($this->internal_name == "my/stuff"): ?>selected<?php endif ?>>Stuff</a>
+							<a href="/download" class="nav-link" <?php if($this->internal_name == "download/index"): ?>selected<?php endif ?>>Download</a>
+						</nav>
+					</div>
 				</div>
-				<div id="UserLinks" >
-					<a href="/my/home"      <?php if($this->internal_name == "my/home"		 ):?>selected<?php endif ?>>Home</a>
-					<a href="/my/profile"   <?php if($this->internal_name == "my/profile"	 ):?>selected<?php endif ?>>Account</a>
-					<a href="/my/character" <?php if($this->internal_name == "my/character"	 ):?>selected<?php endif ?>>Character</a>
-					<a href="/my/friends"   <?php if($this->internal_name == "my/friends"	 ):?>selected<?php endif ?>>Friends</a>
-					<a href="/create/"      <?php if($this->internal_name == "my/create"	 ):?>selected<?php endif ?>>Create</a>
-					<a href="/my/stuff"     <?php if($this->internal_name == "my/stuff"		 ):?>selected<?php endif ?>>Stuff</a>
-					<a href="/download"     <?php if($this->internal_name == "download/index"):?>selected<?php endif ?>>Download</a>
-				</div>
-				<?php else: ?>
-				<div id="Links"></div>
 				<?php endif ?>
 			</div>
 			<?php if(!ClientDetector::IsAClient()): ?>
@@ -246,5 +264,5 @@
 			</div>
 			<?php endif ?>
 			<div id="Body">
-				<div id="BodyContainer">
+				<div id="BodyContainer" class="content-container finobe-modern-style">
 					
