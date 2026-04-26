@@ -8,6 +8,14 @@ if ($user != null) {
     die(header("Location: /my/home"));
 }
 
+$messages = [
+    "login...",
+    "welcome back!",
+    "sigma",
+    "yes",
+    "login"
+];
+
 if (
     isset($_POST['ANORRL$Login$Username']) &&
     isset($_POST['ANORRL$Login$Password']) &&
@@ -69,7 +77,9 @@ if (
             class="card auth-card py-5 d-flex flex-column align-items-center justify-content-center text-center">
             <div class="mb-3"><img src="/s/img/finnobe3llogo.png" alt="Zomium"
                     class="img-fluid login__logo-img auth-logo"></div>
-            <h2 class="my-3">Login</h2>
+           <h2 class="my-3">
+    <?= $messages[array_rand($messages)] ?>
+</h2>
             <div class="form-group w-75 text-start mb-3">
                 <label for="ANORRL_Login_Username">Username</label>
                 <div class="input-group">

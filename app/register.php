@@ -2,9 +2,15 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/core/utilities/userutils.php';
 $user = UserUtils::RetrieveUser();
 
-if ($user != null) {
+if ($user == null) {
+    echo "<h1>YOU CANT CREATE ACCOUNT 😂😂</h1>";
+    exit;
+}
+
+/*if ($user != null) {
     die(header('Location: /my/home'));
 }
+*/
 
 if (session_status() != PHP_SESSION_ACTIVE) {
     session_start();
@@ -81,7 +87,7 @@ if (
                             <div class="card-body text-center">
                                 <img src="/images/ZoniumBIG2.png" class="mb-4" style="max-width: 240px; width: 100%;">
                                 <h4>Welcome to Zomium!</h4>
-                                <p class="mb-1">Remember to read our <a href="/terms">terms of service</a> and <a href="/privacy">privacy policy</a> first.</p>
+                                <p class="mb-1">Remember to read our <a href="/info/terms.php">terms of service</a> and <a href="/info/privacy.php">privacy policy</a> first.</p>
                                 <p class="mb-4">Your access key was accepted. Finish creating your account below.</p>
                                 <form method="POST" class="text-start mt-4">
                                     <div class="mb-3">
@@ -97,7 +103,7 @@ if (
                                         <div class="small text-danger mt-1" id="v_confirmpassword"></div>
                                     </div>
                                     <button class="btn btn-primary w-100" type="submit" id="ANORRL_Signup_Submit" name="ANORRL$Signup$Submit">Register</button>
-                                    <h1 class="h6 mt-3">Need a different key? <a href="/keys">Go back.</a></h1>
+                                    <h1 class="h6 mt-3">You'd have a account? <a href="/app/login.php">Login</a></h1>
                                 </form>
                             </div>
                         </div>

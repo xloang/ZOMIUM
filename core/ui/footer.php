@@ -48,9 +48,9 @@
 
             
             <div class="d-flex flex-wrap gap-3 small">
-                <a href="/about">About Us</a> |
-                <a href="/terms">Terms</a> |
-                <a href="/privacy">Privacy Policy</a> |
+                <a href="/info/about.php">About Us</a> |
+                <a href="/info/terms.php">Terms</a> |
+                <a href="/info/privacy.php">Privacy Policy</a> |
                 <a href="/download">Download</a> |
                 <a href="https://discord.gg/5RsJrCCAzx">Discord</a>
             </div>
