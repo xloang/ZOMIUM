@@ -1,0 +1,140 @@
+body {
+	margin: 0;
+	background: linear-gradient(180deg, #ffffff 0%, #f5f7fb 220px, #eef3f8 100%);
+	font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: var(--text);
+}
+
+#Header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 72px;
+	text-align: center;
+	background: var(--surface);
+	border-bottom: 1px solid var(--border);
+	box-shadow: var(--shadow);
+}
+
+#Header img {
+	height: 72px;
+}
+
+#Separator {
+	position: relative;
+	width: 100%;
+	height: 30px;
+	background: linear-gradient(90deg, #eef4ff, #f8fbff);
+	border-top: 1px solid var(--border);
+	border-bottom: 1px solid var(--border);
+}
+
+#SidewaySeparator {
+	float: right;
+	top: 0;
+	width: 30px;
+	height: 100%;
+	background: linear-gradient(180deg, #eef4ff, #f8fbff);
+	border-left: 1px solid var(--border);
+}
+
+#Sidebar {
+	float: left;
+	width: 250px;
+	height: calc(100vh - 114px);
+	background: var(--surface);
+	border-right: 1px solid var(--border);
+}
+
+#Sidebar ul {
+	float: left;
+	width: 205px;
+	padding: 0;
+	list-style: none;
+	text-align: center;
+	font-weight: 700;
+}
+
+#Sidebar ul > li {
+	padding: 5px 0;
+}
+
+a {
+	color: var(--link);
+	letter-spacing: 1px;
+	text-decoration: none;
+}
+
+a:hover,
+a[selected] {
+	color: var(--link-hover);
+	text-decoration: underline;
+}
+
+#DidYouKnow {
+	float: left;
+	width: 180px;
+	margin-left: 8px;
+	padding: 10px;
+	text-align: center;
+	color: var(--text);
+	background: var(--surface-alt);
+	border: 1px solid var(--border);
+	border-radius: 14px;
+}
+
+#Places {
+	float: left;
+	padding: 15px;
+}
+
+.Place {
+	float: left;
+	width: 230px;
+	padding: 10px;
+	text-align: center;
+	font-weight: 700;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 14px;
+	box-shadow: var(--shadow);
+}
+
+.Place > * {
+	letter-spacing: 0;
+}
+
+.Place a:hover {
+	text-decoration: none;
+}
+
+.Place:hover {
+	background: #fbfcff;
+	color: var(--link-hover);
+}
+
+.Place img {
+	height: 128px;
+	border: 1px solid var(--border);
+	border-radius: 10px;
+}
+
+.Place #Name {
+	width: 100%;
+	margin-top: 5px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.Place #LastEdited {
+	color: var(--text-soft);
+	font-size: 12px;
+	font-style: italic;
+}
+
+#Places td {
+	margin: 0 auto;
+	justify-items: center;
+}

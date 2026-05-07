@@ -1,0 +1,130 @@
+#FormPanel {
+	margin: 20px auto;
+	width: fit-content;
+	text-align: center;
+
+	border: 2px solid rgb(29, 28, 28);
+	padding: 5px 50px;
+	background: #242424;
+	border-radius: 2px;
+}
+
+#FormPanel h4,
+#FormPanel h2 {
+	margin: 15px auto;
+	border-radius: 2px;
+}
+
+#FormPanel input[type=text],
+#FormPanel input[type=password] {
+	border: 2px solid rgb(29, 28, 28);
+	background: #444;
+	padding: 2px 4px;
+	width: 197px;
+	color: white;
+	border-radius: 2px;
+}
+
+#FormPanel input[type=submit] {
+	border: 1px solid var(--fn-primary);
+	background: var(--fn-primary);
+	color: white !important;
+	padding: 4px 12px;
+	font-weight: 400;
+	border-radius: 0.25rem;
+	text-transform: lowercase;
+	font-size: 14px;
+	transition: all .2s linear;
+}
+
+
+
+.Validator {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 10px;
+	color: red;
+}
+
+#FormPanel form {
+	width: 240px;
+	padding-bottom: 10px;
+}
+
+.FormBox h3 {
+	margin: 0;
+}
+
+.FormBox #DetailsBox {
+	width: 666px;
+	margin: 0 auto;
+}
+
+.FormBox #DetailsBox #FormStuff {
+	background: #222;
+	border: 2px solid rgb(29, 28, 28);
+	padding: 15px;
+}
+
+.FormBox #DetailsBox #FormStuff span {
+	color: lightgray;
+}
+
+/* Profile CSS */
+#FormStuff input[type=submit] {
+	border: 1px solid var(--fn-primary);
+	background: var(--fn-primary);
+	color: white !important;
+	padding: 4px 12px;
+	font-weight: 400;
+	border-radius: 0.25rem;
+	text-transform: lowercase;
+	font-size: 14px;
+	transition: all .2s linear;
+}
+
+
+
+.FormBox #DetailsBox #FormStuff textarea {
+	display:block;
+	margin-top:15px;
+	border: 2px solid rgb(29, 28, 28);
+	background: #444;
+	padding: 2px 4px;
+	color: white;
+	width: 618px;
+	height: 115px;
+	resize: vertical;
+}
+
+.ErrorTime {
+	padding: 5px 9px;
+	border-bottom: 2px solid black;
+	background: #9d0000;
+	font-weight: bold;
+}
+
+.FilePicker > label[for] {
+	border: 2px solid rgb(29, 28, 28);
+	background: #242424;
+	color: white;
+	padding: 4px 8px;
+	font-weight: bold;
+	font-family: punk;
+	margin-bottom: 0px;
+	display: block;
+
+	width: 72px;
+	margin: 0;
+	display: inline;
+}
+
+
+
+.FilePicker > input[type="file"] {
+	display: none;
+}
+
+.FilePicker > label[id] {
+	margin-left: 5px;
+}

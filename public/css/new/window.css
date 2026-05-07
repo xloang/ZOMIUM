@@ -1,0 +1,61 @@
+.Window {
+	width: fit-content;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
+	overflow: hidden;
+}
+
+.Window #Name {
+	padding: 10px 14px;
+	text-align: center;
+	letter-spacing: 1px;
+	font-weight: 700;
+	background: var(--surface-alt);
+	border-bottom: 1px solid var(--border);
+	user-select: none;
+}
+
+.Window #Contents {
+	padding: 12px;
+}
+
+.Window input[type="number"] {
+	width: 125px;
+}
+
+.Window table td {
+	vertical-align: middle !important;
+}
+
+.Window ul {
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-left: 0;
+	list-style: none;
+	background: var(--surface-alt);
+	border: 1px solid var(--border);
+	border-radius: 12px;
+}
+
+.Window li {
+	padding: 8px 10px;
+	border-bottom: 1px solid var(--border);
+}
+
+.Window li:nth-child(even) {
+	background: #fbfcfe;
+}
+
+.Window li:last-child {
+	border: none;
+}
+
+.Window[id] {
+	margin-bottom: 10px;
+}
+
+.Window .Number {
+	margin: 0 10px 0 5px;
+}

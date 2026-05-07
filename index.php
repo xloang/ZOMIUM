@@ -1,33 +1,46 @@
 <?php
+	// lifted from pixie - by parakeet
 
+	$candidates = [__DIR__ . DIRECTORY_SEPARATOR . 'settings.json', __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'settings.json'];
+	$settingsPath = null;
+	foreach ($candidates as $p) {
+		if (file_exists($p)) { $settingsPath = $p; break; }
+	}
+	if ($settingsPath === null) {
+		die('Missing settings.json. Put a valid settings.json in the project root or in the web folder.');
+	}
+	$raw = file_get_contents($settingsPath);
+	$decoded = json_decode($raw);
+	if ($decoded === null) {
+		die('Invalid settings.json: ' . json_last_error_msg());
+	}
+	define('CONFIG', $decoded);
 
+	require __DIR__ . "/vendor/autoload.php";
 
-$blabla = "SIGMA EPSTEIN DIDDY";
+	use anorrl\utilities\UserUtils;
+	use anorrl\Session;
+	
+	if(isset(CONFIG->secret)) {
+		if(isset($_GET[CONFIG->secret->partone]) && $_GET[CONFIG->secret->partone] == CONFIG->secret->parttwo) {
+			setcookie('ANORRL$Hidden$Cookie$yaya', CONFIG->secret->token, time() + (460800* 30), "/", CONFIG->domain);
+			die(header("Location: /register"));
+		}
+	}
+	
+	$session_user = UserUtils::RetrieveUser();
 
+	if(session_status() != PHP_SESSION_ACTIVE) {
+		session_start();
+	}
 
+	if($session_user != null) {
+		define('SESSION', new Session($session_user));
+	} else {
+		define('SESSION', false);
+	}
+	
+	require_once __DIR__ . "/router.php";
+
+	exit();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZOMIUM</title>
-</head>
-<body>
-
-    <!-- header goes here -->
-
-     <div class="welcome-message">
-         <h1>Welcome to ZOMIUM!</h1>
-         <p><?php echo $blabla; ?></p>
-     </div>
-
-     <!-- footer goes here -->
-         
-     <div>
-     <h1>So What is ZOMIUM?</h1>
-     <p>ZOMIUM is a 2016 - 2019 Revival that is private.</p>
-     </div>
-     
-</body>
-</html>
