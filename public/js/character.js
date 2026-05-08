@@ -279,7 +279,7 @@ ANORRL.Character  = {
 						urlname = "unnamed";
 					}
 
-					template.find("#NameAndThumbs > img").attr("src", asset['thumbnail']);
+					template.find("#NameAndThumbs > img").attr("src", "/thumbs/?id="+asset['id']+"&sxy=130");
 
 					template.find("#NameAndThumbs > span").html(asset['name']);
 					template.find("#NameAndThumbs").attr("href", "/"+urlname+"-item?id="+asset['id']);
@@ -365,7 +365,7 @@ ANORRL.Character  = {
 						urlname = "unnamed";
 					}
 
-					template.find("#NameAndThumbs > img").attr("src", asset['thumbnail']);
+					template.find("#NameAndThumbs > img").attr("src", "/thumbs/?id="+asset['id']+"&sxy=130");
 
 					template.find("#NameAndThumbs > span").html(asset['name']);
 					template.find("#NameAndThumbs").attr("href", "/"+urlname+"-item?id="+asset['id']);
@@ -495,12 +495,7 @@ ANORRL.Character  = {
 		if(ANORRL.Character.IsRendering) {
 			return;
 		}
-		$(".thumbnail-span canvas").remove();
-		$(".thumbnail-holder > img").attr("src","/public/images/ProgressIndicator4White.gif");
-		if(this.Is3DActive()) {
-			$(".thumbnail-holder > img").css("display", "block");
-			$(".thumbnail-span").css("display", "none");
-		}
+		$("#PlayerRender").attr("src","/images/render1.gif");
 		ANORRL.Character.IsRendering = true;
 
 
@@ -513,14 +508,7 @@ ANORRL.Character  = {
 			//ANORRL.Character.LoadWardrobe();
 			//ANORRL.Character.LoadCurrentlyWearing();
 			
-			if(ANORRL.Character.Is3DActive()) {
-				ANORRL.Character.Load3D();
-			} else {
-				ANORRL.Character.Load2D();
-			}
-			
-	
-			$(".thumbnail-holder > img").attr("src",ANORRL.Character.PlayerRenderUrl+"&t="+Date.now());
+			$("#PlayerRender").attr("src",ANORRL.Character.PlayerRenderUrl+"&t="+Date.now());
 			ANORRL.Character.IsRendering = false;
 
 			
@@ -592,7 +580,7 @@ ANORRL.Character  = {
             	if(urlname === "") urlname = "unnamed";
 
             	template.find("#NameAndThumbs > img")
-                	.attr("src", asset['thumbnail']);
+                	.attr("src", "/thumbs/?id="+asset['id']+"&sxy=130");
 
             	template.find("#NameAndThumbs > span")
                 	.html(asset['name']);
@@ -619,43 +607,6 @@ ANORRL.Character  = {
 
         	ANORRL.Character.CurrentlyLoadingCrapBruh = false;
    		});
-	},
-	Is3DActive: function() {
-		if(!this.Has3DEnabled())
-			return false;
-
-		return $("#ThumbnailSwitcher").attr("data-3d") == "true";
-	},
-	Has3DEnabled: function() {
-		return $(".thumbnail-span").length != 0;
-	},
-	Load3D: function() {
-		if(!this.Has3DEnabled())
-			return;
-
-		$("#ThumbnailSwitcher").attr("data-3d", true);
-
-		$(".thumbnail-holder > img").css("display", "none");
-		$(".thumbnail-span").css("display", "block");
-
-		$(".thumbnail-span").load3DThumbnail("avatar", function(canvas) {
-			console.log("3D: complete!");
-		}, function() {
-			console.log("3D: I dont like you");
-			
-			ANORRL.Character.Load2D();
-		});
-	},
-	Load2D: function() {
-		if(!this.Has3DEnabled())
-			return;
-
-		$("#ThumbnailSwitcher").attr("data-3d", false);
-
-		$(".thumbnail-holder > img").css("display", "block");
-		$(".thumbnail-span").css("display", "none");
-
-		$(".thumbnail-span canvas").remove();
 	}
 };
 
@@ -665,7 +616,7 @@ function setBackgroundColour(bodycontainer, bodytype, data, bodycolor) {
 
 $(function(){
 
-	ANORRL.Character.PlayerRenderUrl = $(".thumbnail-holder > img").attr("src");
+	ANORRL.Character.PlayerRenderUrl = $("#PlayerRender").attr("src");
 	
 	$("a[data_category]").on("click",function() {
 		ANORRL.Character.LoadWardrobe($(this).attr("data_category"), ANORRL.Character.CurrentPage);
@@ -681,15 +632,14 @@ $(function(){
 			"shirts" : 2,
 			"pants" : 12,
 			"gears" : 19,
-			"outfits" : 32,
+			"outfits" : "outfits",
 			"packages" : 32,
 			"heads" : 17,
 			"torsos" : 27,
 			"leftarms" : 29,
 			"rightarms": 28,
 			"leftlegs" : 30,
-			"rightlegs" : 31,
-			"emotes" : 61,
+			"rightlegs" : 31
 		}
 
 		ANORRL.Character.LoadWardrobe(categories[url]);
@@ -716,15 +666,4 @@ $(function(){
 	$("#Paginator").find("input").on("change", function() {
 		ANORRL.Character.LoadWardrobe(ANORRL.Character.CurrentCategory, Number($(this).val()));
 	});
-
-	if(ANORRL.Character.Has3DEnabled()) {
-		$("#ThumbnailSwitcher").on("click", function() {
-			if($(this).attr("data-3d") == "true") {
-				ANORRL.Character.Load2D();
-			} else {
-				$(this).attr("data-3d", true);
-				ANORRL.Character.Load3D();
-			}
-		})
-	}
 });

@@ -21,36 +21,30 @@ var allowedcategories = {
 	"audio": 3,
 	"decals": 13,
 	"models": 10,
+	"places": 9,
 	"hats": 8,
 	"faces": 18,
-	"emotes": 61,
-	"animations": 24,
 }
 
 var shouldnotbeallowedatallcategories = {
 	"badges": 21,
 	"gamepasses": 34,
-	"places": 9,
 }
 
 const regex = /[^A-Za-z0-9 ]/g;
 
 ANORRL.Stuff  = {
-	isAdmin: false,
+	IsAdmin: false,
 	CurrentPage: 1,
 	CurrentCategory: 8,
 	CurrentlyLoadingCrapBruh: false,
-	CurrentQuery: "",
-	Submit: function() {
-		this.GrabAssets(this.CurrentCategory, this.CurrentPage, $("#SearchBox[name=query]").val());
-	},
 	AdvancePager: function() {
 		this.GrabAssets(this.CurrentCategory, this.CurrentPage + 1);
 	},
 	DeadvancePager: function() {
 		this.GrabAssets(this.CurrentCategory, this.CurrentPage - 1);
 	},
-	GrabAssets: function(category, page, query) {
+	GrabAssets: function(category, page) {
 
 		if(this.CurrentlyLoadingCrapBruh) {
 			return;
@@ -69,13 +63,6 @@ ANORRL.Stuff  = {
 		} else {
 			this.CurrentCategory = category;
 		}
-
-		if(query === undefined) {
-			query = this.CurrentQuery;
-		} else {
-			this.CurrentQuery = query;
-		}
-
 		if(page === undefined) {
 			page = 1;
 		}
@@ -98,7 +85,7 @@ ANORRL.Stuff  = {
 		var categorylabel = $("li[data_category="+category+"]").find("a").html().toLowerCase().replaceAll("-", "");
 
 		$("li[data_category="+category+"]").attr("selected", "");
-		if(shouldnotbeallowedatallcategories[categorylabel] == undefined && (allowedcategories[categorylabel] != undefined || this.isAdmin)) {
+		if(shouldnotbeallowedatallcategories[categorylabel] == undefined && (allowedcategories[categorylabel] != undefined || this.IsAdmin)) {
 			if(categorylabel == "places") {
 				$($("#CreateArea").find("a")[0]).attr("href","javascript:alert('Use ANORRL Studio for this!')");
 			} else {
@@ -113,7 +100,7 @@ ANORRL.Stuff  = {
 		
 		ANORRL.ChangeUrl("", "/my/stuff#"+categorylabel);
 
-		$.get("/api/stuff", {c: category, p : page, q: query}, function(data) {
+		$.get("/api/stuff", {c: category, p : page}, function(data) {
 			
 			var assets = data['assets'];
 			ANORRL.Stuff.CurrentPage = data['page'];
@@ -167,7 +154,7 @@ ANORRL.Stuff  = {
 						urlname = "unnamed";
 					}
 
-					template.find("#NameAndThumbs > img").attr("src", asset['thumbnail']);
+					template.find("#NameAndThumbs > img").attr("src", "/thumbs/?id="+asset['id']+"&sxy=130");
 
 					template.find("#NameAndThumbs > span").html(asset['name']);
 					template.find("#NameAndThumbs").attr("href", "/"+urlname+"-item?id="+asset['id']);
@@ -228,8 +215,6 @@ $(function(){
 			"badges": 21,
 			"gamepasses": 34,
 			"packages": 32,
-			"animations": 24,
-			"emotes": 61,
 		}
 
 		ANORRL.Stuff.GrabAssets(categories[url]);
@@ -240,14 +225,9 @@ $(function(){
 	$("#Paginator").find("input").on("change", function() {
 		ANORRL.Stuff.GrabAssets(ANORRL.Stuff.CurrentCategory, Number($(this).val()));
 	});
-
-	$("#SearchBox").on("keypress", function(e) {
-		if(e.keyCode == 13) {
-			ANORRL.Stuff.Submit();
-		}
-	});
+	
 
 	$.get("/api/user?id=0&request=isadmin", function(data) {
-		ANORRL.Stuff.isAdmin = data['isadmin'];
+		ANORRL.Stuff.IsAdmin = data['isadmin'];
 	});
 });

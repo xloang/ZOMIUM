@@ -1,170 +1,103 @@
 <?php
-ini_set('session.use_strict_mode', 0);
-ini_set('session.use_cookies', 1);
-ini_set('session.use_only_cookies', 1);
-ini_set('session.cookie_httponly', 0);
-ini_set('session.cookie_secure', 0);
-ini_set('session.cookie_samesite', 'Lax');
+	ini_set('session.use_strict_mode', 0);
+	ini_set('session.use_cookies', 1);
+	ini_set('session.use_only_cookies', 1);
+	ini_set('session.cookie_httponly', 0);
+	ini_set('session.cookie_secure', 0);
+	ini_set('session.cookie_samesite', 'Lax');
 
-session_name("ANORRLSESSID");
-session_start();
+	session_name("ANORRLSESSID");
+	if (session_status() !== PHP_SESSION_ACTIVE) {
+		session_start();
+	}
 
 	use anorrl\Page;
 	use anorrl\utilities\UserUtils;
 
-	if(session_status() != PHP_SESSION_ACTIVE) {
-		session_start();
-	}
-
-	/* ========= LOG SİSTEMİ ========= */
-	function writeLog($message) {
-		$logFile = 'C:\\laragon\\www\\private\\logs\\login.log';
-
-		$date = date("Y-m-d H:i:s");
-		$ip = $_SERVER['REMOTE_ADDR'] ?? 'UNKNOWN';
-
-		$logMessage = "[$date] [IP:$ip] $message" . PHP_EOL;
-
-		file_put_contents($logFile, $logMessage, FILE_APPEND);
-	}
-
-	writeLog("Login sayfası açıldı");
-
-	if(defined('SESSION') && SESSION) {
-		writeLog("Zaten giriş yapılmış → /my/home yönlendirildi");
+	if (defined('SESSION') && SESSION) {
 		die(header("Location: /my/home"));
 	}
 
-	if(isset($_POST['ANORRL$Login$Username']) &&
-	   isset($_POST['ANORRL$Login$Password']) &&
-	   isset($_POST['ANORRL$Login$Submit'])) {
-		
-		writeLog("Login isteği gönderildi");
+	$messages = [
+		"login...",
+		"welcome back!",
+		"sigma",
+		"yes",
+		"login"
+	];
 
+	if (
+		isset($_POST['ANORRL$Login$Username']) &&
+		isset($_POST['ANORRL$Login$Password']) &&
+		isset($_POST['ANORRL$Login$Submit'])
+	) {
 		$username = trim($_POST['ANORRL$Login$Username']);
 		$password = trim($_POST['ANORRL$Login$Password']);
+		$result = UserUtils::LoginUser($username, $password);
 
-		writeLog("Username: " . $username);
-
-		if(empty($username) || empty($password)) {
-			writeLog("HATA: Boş alan");
+		if (isset($result['login']) && $result['login'] != 'Incorrect details provided!') {
+			die(header('Location: /my/home'));
 		}
 
-		try {
-			$result = UserUtils::LoginUser($username, $password);
-
-			writeLog("Login sonucu: " . json_encode($result));
-
-			if($result["login"] != "Incorrect details provided!") {
-				writeLog("GİRİŞ BAŞARILI → /my/home");
-				die(header("Location: /my/home"));
-			} else {
-				writeLog("GİRİŞ BAŞARISIZ");
-				$_SESSION['login_errors'] = $result;
-				die(header("Location: /login"));
-			}
-
-		} catch (Exception $e) {
-			writeLog("EXCEPTION: " . $e->getMessage());
-		}
+		$_SESSION['login_errors'] = $result;
+		die(header('Location: /login'));
 	}
 
 	$page = new Page("Login");
-
-	$page->addStylesheet("/css/new/forms.css");
 	$page->addScript("/js/forms.js");
-
-	$page->loadHeader();
+	$page->loadBasicHeader();
 ?>
-
 <script>
-	$(function(){
-		$("#ANORRL_Login_Username").on("input change", function() {
-			ANORRL.Login.CheckUsername(this, $(this).val());
-		});
-		$("#ANORRL_Login_Password").on("input change", function() {
-			ANORRL.Login.CheckPassword(this, $(this).val());
-		});
-
-		$("form").submit(function (e) {
-			ANORRL.Login.CheckUsername(document.getElementById("ANORRL_Login_Username"), $("#ANORRL_Login_Username").val());
-			ANORRL.Login.CheckPassword(document.getElementById("ANORRL_Login_Password"), $("#ANORRL_Login_Password").val());
-			if(!($(".Invalid").length == 0 && $(".Valid").length == 2)) {
-				e.preventDefault();
-				alert("Holy shit you have so much wrong");
-			}
-		});
+$(function () {
+	$('#ANORRL_Login_Username').on('input change', function () {
+		ANORRL.Login.CheckUsername(this, $(this).val());
 	});
+	$('#ANORRL_Login_Password').on('input change', function () {
+		ANORRL.Login.CheckPassword(this, $(this).val());
+	});
+	$('form').submit(function (e) {
+		ANORRL.Login.CheckUsername(document.getElementById('ANORRL_Login_Username'), $('#ANORRL_Login_Username').val());
+		ANORRL.Login.CheckPassword(document.getElementById('ANORRL_Login_Password'), $('#ANORRL_Login_Password').val());
+		if (!($('.Invalid').length === 0 && $('.Valid').length === 2)) {
+			e.preventDefault();
+			alert('Please fix the highlighted fields.');
+		}
+	});
+});
 </script>
-
-<style>
-	.FormImage {
-		width: 265px;
-		height: 309px;
-		border: 2px solid black;
-	}
-
-	#BodyContainer > h2 {
-		margin: 0px;
-		width: calc(100% - 48px);
-		margin-bottom: 20px;
-		text-align: center;
-		background: none repeat-x;
-		background-size: 49px auto;
-		border: 4px solid black;
-		height: 21px;
-		background-blend-mode: difference;
-		background-image: linear-gradient(#ffb300,#ffb300),url("/public/images/header/navbar.jpg");
-		overflow: hidden;
-	}
-</style>
-
-<div id="FormPanel" style="width: 240px;">
-	<form method="POST">
-		<div>
-			<span class="Validator">
-				<?php 
-					if(isset($_SESSION['login_errors'])) {
-						echo $_SESSION['login_errors']['login'];
-					}
-				?>
-			</span>
+<div class="auth-shell px-3 min-vh-100 d-flex align-items-center justify-content-center">
+	<form method="POST" class="card auth-card py-5 d-flex flex-column align-items-center justify-content-center text-center" style="width:min(100%,540px);">
+		<div class="mb-3">
+			<img src="/public/images/legacy/finnobe3llogo.png" alt="Zomium" class="img-fluid auth-logo" style="max-width:280px;">
 		</div>
-		<div>
-			<h4>Username</h4>
-			<span class="Validator" id="v_username">
-				<?php 
-					if(isset($_SESSION['login_errors'])) {
-						if(isset($_SESSION['login_errors']['username'])) {
-							echo $_SESSION['login_errors']['username'];
-						}
-					}
-				?>
-			</span>
-			<input type="text" id="ANORRL_Login_Username" name="ANORRL$Login$Username" minlength="3" maxlength="20" required>
+		<h2 class="my-3"><?= htmlspecialchars($messages[array_rand($messages)], ENT_QUOTES, 'UTF-8') ?></h2>
+		<div class="form-group w-75 text-start mb-3">
+			<label for="ANORRL_Login_Username">Username</label>
+			<div class="input-group">
+				<input class="form-control" type="text" id="ANORRL_Login_Username" name="ANORRL$Login$Username" placeholder="username">
+			</div>
+			<div class="small text-danger mt-2" id="v_username">
+				<?php if (isset($_SESSION['login_errors']['username'])) { echo $_SESSION['login_errors']['username']; } ?>
+			</div>
+			<?php if (isset($_SESSION['login_errors']['login'])): ?>
+				<small class="text-danger"><?= htmlspecialchars($_SESSION['login_errors']['login'], ENT_QUOTES, 'UTF-8') ?></small>
+			<?php endif; ?>
 		</div>
-		<div>
-			<h4>Password</h4>
-			<span class="Validator" id="v_password">
-				<?php 
-					if(isset($_SESSION['login_errors'])) {
-						if(isset($_SESSION['login_errors']['password'])) {
-							echo $_SESSION['login_errors']['password'];
-						}
-					}
-				?>
-			</span>
-			<input type="password" id="ANORRL_Login_Password" name="ANORRL$Login$Password" minlength="7" required>
-			<span>If you do not have an account then,<br><a href="/register">register here!</a></span>
+		<div class="form-group w-75 text-start mb-3">
+			<label for="ANORRL_Login_Password">Password</label>
+			<input class="form-control" type="password" id="ANORRL_Login_Password" name="ANORRL$Login$Password" placeholder="Password">
+			<div class="small text-danger mt-2" id="v_password">
+				<?php if (isset($_SESSION['login_errors']['password'])) { echo $_SESSION['login_errors']['password']; } ?>
+			</div>
 		</div>
-		<div>
-			<p></p>
-			<input type="submit" id="ANORRL_Login_Submit" name="ANORRL$Login$Submit" value="Login">
+		<div class="form-group d-flex justify-content-between align-items-start w-75 gap-2 mb-3">
+			<button class="btn btn-primary flex-grow-1" type="submit" id="ANORRL_Login_Submit" name="ANORRL$Login$Submit">Login</button>
+			<a href="/" class="btn btn-secondary flex-grow-1">&lt; Back</a>
 		</div>
-	</form>						
+		<div class="form-group"><a href="/register" class="clearfix">Need an account? Register here.</a></div>
+	</form>
 </div>
-
-<?php 
-	$page->loadFooter();
+<?php
+	$page->loadBasicFooter();
 	unset($_SESSION['login_errors']);
 ?>

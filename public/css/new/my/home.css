@@ -1,3 +1,14 @@
+h1, h2, h3, h4, h5, h6,
+body,
+input,
+button,
+textarea,
+select,
+#HomePage,
+#HomePage * {
+	font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 h1, h2, h3, h4 {
 	width: initial\9;
 }
@@ -188,7 +199,7 @@ h1, h2, h3, h4 {
 	padding: 2px 4px\9;
 	width: 120px\9;
 	font-weight: bold;
-	font-family: punk;
+	font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 

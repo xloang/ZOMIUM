@@ -8,7 +8,7 @@
 
 	$isclient = ClientDetector::IsAClient();
 	if(!$isclient)
-		die("Hey something isn't right here... You sure you're using the right studio?");
+		die("open this page on studio kiddo");
 
 	$extra_places = [];
 	if(isset($_GET['filepath'])) {

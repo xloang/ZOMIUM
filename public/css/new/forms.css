@@ -3,26 +3,23 @@
 	width: fit-content;
 	text-align: center;
 
-	border: 2px solid rgb(29, 28, 28);
+	border: 2px solid black;
 	padding: 5px 50px;
 	background: #242424;
-	border-radius: 2px;
 }
 
 #FormPanel h4,
 #FormPanel h2 {
 	margin: 15px auto;
-	border-radius: 2px;
 }
 
 #FormPanel input[type=text],
 #FormPanel input[type=password] {
-	border: 2px solid rgb(29, 28, 28);
+	border: 2px solid black;
 	background: #444;
 	padding: 2px 4px;
 	width: 197px;
 	color: white;
-	border-radius: 2px;
 }
 
 #FormPanel input[type=submit] {
@@ -62,7 +59,7 @@
 
 .FormBox #DetailsBox #FormStuff {
 	background: #222;
-	border: 2px solid rgb(29, 28, 28);
+	border: 2px solid black;
 	padding: 15px;
 }
 
@@ -88,7 +85,7 @@
 .FormBox #DetailsBox #FormStuff textarea {
 	display:block;
 	margin-top:15px;
-	border: 2px solid rgb(29, 28, 28);
+	border: 2px solid black;
 	background: #444;
 	padding: 2px 4px;
 	color: white;
@@ -105,8 +102,8 @@
 }
 
 .FilePicker > label[for] {
-	border: 2px solid rgb(29, 28, 28);
-	background: #242424;
+	border: 2px solid black;
+	background: black;
 	color: white;
 	padding: 4px 8px;
 	font-weight: bold;

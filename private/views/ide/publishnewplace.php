@@ -29,7 +29,7 @@
 		$isclient = ClientDetector::IsAClient();
 
 		if(!$isclient)
-			die("Hey something isn't right here... You sure you're using the right studio?");
+			die("open this page on studio kiddo");
 
 		$server_size = intval($_POST['ANORRL$IDE$Publish$Place$ServerSize']) <= 0 ? 12 : intval($_POST['ANORRL$IDE$Publish$Place$ServerSize']);
 

@@ -4,163 +4,346 @@
 
 	$user = SESSION->user;
 
-	if(isset($_POST['ANORRL$Home$Status$Text']) &&
-	   isset($_POST['ANORRL$Home$Status$Submit'])) {
+	if (isset($_POST['ANORRL$Home$Status$Text']) && isset($_POST['ANORRL$Home$Status$Submit'])) {
 		$result = Status::Send($user->id, trim($_POST['ANORRL$Home$Status$Text']));
 
-		if($result['error']) {
+		if ($result['error']) {
 			$_SESSION['ANORRL$Home$StatusError'] = true;
 			$_SESSION['ANORRL$Home$StatusResult'] = $result['reason'];
 		} else {
 			$_SESSION['ANORRL$Home$StatusError'] = false;
-			$_SESSION['ANORRL$Home$StatusResult'] = "Success!";
+			$_SESSION['ANORRL$Home$StatusResult'] = 'Success!';
 		}
 
-		die(header("Location: /my/home"));
+		die(header('Location: /my/home'));
 	}
 
-	$recentlyplayed = $user->getRecentlyPlayedGames(2);
-
-	$page = new Page("Home", "my/home");
-
-	$page->addStylesheet("/css/new/my/home.css?v=2");
-	$page->addScript("/js/home.js?t=1776011774");
-
+	$page = new Page("Dashboard", "my/home");
+	$page->addScript("/js/home.js?t=1771413807");
 	$page->loadHeader();
 ?>
+<style>
+	.home-kicker,
+	.home-title,
+	.home-subtitle,
+	.profile-name,
+	.feed-heading {
+		font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
+	}
+
+	body {
+		background: #101011 !important;
+		background-image: none !important;
+		font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
+		font-weight: 500;
+	}
+
+	.home-hero {
+		position: relative;
+		min-height: 350px;
+		display: flex;
+		align-items: flex-end;
+		overflow: hidden;
+		border-bottom: 1px solid rgba(255,255,255,.08);
+		background:
+			linear-gradient(180deg, rgba(19, 12, 34, .15) 0%, rgba(8, 8, 10, .72) 55%, #0f0f10 100%),
+			url('/public/images/xmas_small.jpg') center center / cover no-repeat;
+	}
+
+	.btn-success {
+		color: #fff;
+		background-color: #00b857;
+		border-color: #00b857;
+	}
+
+	.btn-success.focus,
+	.btn-success:focus,
+	.btn-success:hover {
+		color: #fff;
+		background-color: #009245;
+		border-color: #00853f;
+	}
+
+	.btn-success.focus,
+	.btn-success:focus {
+		box-shadow: 0 0 0 1px rgba(38, 195, 112, .5);
+	}
+
+	.btn-success.disabled,
+	.btn-success:disabled {
+		color: #fff;
+		background-color: #00b857;
+		border-color: #00b857;
+	}
+
+	.btn-success:not(:disabled):not(.disabled).active,
+	.btn-success:not(:disabled):not(.disabled):active,
+	.show > .btn-success.dropdown-toggle {
+		color: #fff;
+		background-color: #00853f;
+		border-color: #007839;
+	}
+
+	.btn-success:not(:disabled):not(.disabled).active:focus,
+	.btn-success:not(:disabled):not(.disabled):active:focus,
+	.show > .btn-success.dropdown-toggle:focus {
+		box-shadow: 0 0 0 1px rgba(38, 195, 112, .5);
+	}
+
+	.home-hero::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		backdrop-filter: blur(7px);
+		background: rgba(135, 170, 210, .12);
+	}
+
+	.home-hero > .container {
+		position: relative;
+		z-index: 1;
+		padding-top: 4.5rem;
+		padding-bottom: 4rem;
+	}
+
+	.home-kicker {
+		font-size: .9rem;
+		letter-spacing: .08em;
+		text-transform: uppercase;
+		color: rgba(255,255,255,.72);
+	}
+
+	.join-btn {
+		background-color: #38a169;
+		color: #ffffff;
+		font-size: 16px;
+		font-weight: 500;
+		padding: 14px 28px;
+		border: none;
+		border-color: #38a169;
+		border-radius: 8px;
+		cursor: pointer;
+		letter-spacing: 0.3px;
+		transition: background-color 0.2s ease;
+	}
+
+	.join-btn:hover {
+		background-color: #38a169;
+	}
+
+	.join-btn:active {
+		background-color: #38a169;
+		transform: scale(0.98);
+	}
+
+	.home-title {
+		font-size: clamp(2.25rem, 4vw, 3.25rem);
+		font-weight: 600;
+		color: #f3f5f8;
+		margin-bottom: .75rem;
+	}
+
+	.home-subtitle {
+		max-width: 42rem;
+		color: rgba(255,255,255,.82);
+		font-size: 1.05rem;
+	}
+
+	.dashboard-shell {
+		margin-top: -2.5rem;
+		position: relative;
+		z-index: 2;
+	}
+
+	.dashboard-panel {
+		background: #17171a;
+		border: 0 solid rgba(255,255,255,.08);
+		border-radius: 0;
+		box-shadow: 0 22px 44px rgba(0,0,0,.28);
+	}
+
+	.feed-panel {
+		padding: 1rem;
+	}
+
+	.feed-heading {
+		color: #fff;
+		font-size: 2rem;
+		font-weight: 500;
+		margin-bottom: 1rem;
+	}
+
+	.feed-composer {
+		background: #303238;
+		border: 1px solid rgba(255,255,255,.08);
+		border-radius: .25rem;
+		color: #eef2f7;
+		min-height: 110px;
+		resize: vertical;
+	}
+
+	.feed-composer::placeholder {
+		color: #9aa2ae;
+	}
+
+	.feed-submit {
+		min-width: 110px;
+	}
+
+	#Feeds {
+		border-collapse: separate;
+		border-spacing: 0 1rem;
+	}
+
+	#Feeds .feed-row {
+		background: #1f1f23;
+		border: 1px solid rgba(255,255,255,.06);
+	}
+
+	#Feeds .feed-row td {
+		padding: 1rem;
+		vertical-align: top;
+		background: #1f1f23;
+		color: #edf1f7;
+	}
+
+	#Feeds .feed-row td:first-child {
+		width: 110px;
+		border-top-left-radius: .4rem;
+		border-bottom-left-radius: .4rem;
+	}
+
+	#Feeds .feed-row td:last-child {
+		border-top-right-radius: .4rem;
+		border-bottom-right-radius: .4rem;
+	}
+
+	#Feeds .User a {
+		color: #fff;
+		text-decoration: none;
+	}
+
+	#Feeds .User img {
+		width: 72px;
+		height: 72px;
+		object-fit: cover;
+		border-radius: .75rem;
+		border: 1px solid rgba(255,255,255,.08);
+		background: #121212;
+	}
+
+	#Feeds #Content code {
+		display: block;
+		white-space: pre-wrap;
+		font-family: inherit;
+		color: #eef2f7;
+		background: transparent;
+		padding: 0;
+	}
+
+	#DatePosted {
+		color: #8d95a3;
+	}
+
+	.feed-pager a {
+		color: #d7e9ff;
+		text-decoration: none;
+	}
+
+	.feed-pager a:hover {
+		text-decoration: underline;
+		text-decoration-color: #6fb7ff;
+		text-underline-offset: .25rem;
+	}
+</style>
+
 <table id="FeedItem" template>
-	<td class="User">
-		<a href="">
-			<img src="">
-			<div id="Name">Name here</div>
-		</a>
-	</td>
-	<td id="Content">
-		<code>Content content</code>
-		<div id="DatePosted">Posted <span id="Date">DD/MM/YYYY</span><!-- <a href="">Report abuse</a>--></div>
-	</td>
+	<tr class="feed-row">
+		<td class="User">
+			<a href="">
+				<img src="" width="72" height="72" alt="Feed user">
+				<div id="Name" class="mt-2 fw-semibold">Name here</div>
+			</a>
+		</td>
+		<td id="Content">
+			<code>Content content</code>
+			<div id="DatePosted" class="small mt-3">Posted <span id="Date">DD/MM/YYYY</span></div>
+		</td>
+	</tr>
 </table>
-<div id="HomePage">
-	<div id="HelloStuff">
-		<h1 id="Hello" style="width: 850px">
-			<marquee scrollamount="15" direction="right" behavior="alternate"><?= $user->name ?></marquee>
-			<marquee scrollamount="15" behavior="alternate" style="display: block;margin-top: -33px;z-index: 9;" direction="left"><?= $user->name ?></marquee>
-		</h1>
-		<div id="UserProfile">
-			<a href="/users/<?= $user->id ?>/profile"><img id="ProfilePicture" src="<?= $user->getThumbsUrlService($user->setprofilepicture ? "profile" : "player", 200) ?>"></a>
-			<div id="StatusContainer">
-			<?php 
-				if($user->getLatestStatus() != null) {
-					$status = $user->getLatestStatus()->content;
-					echo <<<EOT
-						<span id="Quotation" style="top: 4px;left: 7px;">&quot;</span>
-							<span id="Status">$status</span>
-						<span id="Quotation" style="bottom: -10px;right: 7px;">&quot;</span>								
-					EOT;
-				} else {
-					echo <<<EOT
-						<span id="NoStatus">Seems like you have no status... Try sending one!</span>
-					EOT;
-				}
-			?>
-			
-		</div>
-		</div>
-		<div id="FriendsContainer">
-			<h3>Friends<?php if($user->getFriendsCount() > 5): ?> <a href="/my/friends" style="font-size: 12px;">(See all)</a><?php endif ?></h3>
-			<?php if($user->getFriendsCount() != 0): ?>
-			<ul id="Friends">
-			<?php 
-				$friends = $user->getFriends();
-				shuffle($friends);
-				
-				if(count($friends) > 5) {
-					$new_friends = [];
-					for($i = 1; $i <= 5; $i++) {
-						$new_friends[] = $friends[count($friends)-$i];
-					}
 
-					$friends = $new_friends;
-				}
-
-				foreach($friends as $friend): ?>
-
-					<li class="Friend">
-						<a id="ProfileLink" href="/users/<?= $friend->id ?>/profile">
-							<img id="Profile" src="<?= $friend->getThumbsUrl(100) ?>">
-							<div id="Name"><?= $friend->name ?></div>
-						</a>
-					</li>
-
-				<?php endforeach ?>
-			</ul>
-			<?php else: ?>
-			<ul id="Friends" style="display: table">
-				<div id="NoFriends">You don't have any friends!</div>
-			</ul>
-			<?php endif ?>
-		</div>
-		<br style="clear: both">
-		<div id="FeedAndGames">
-			<div id="ProfileGames">
-				<div id="RecentlyPlayed">
-					<h3>Recently Played</h3>
-					<div id="Games">
-						<?php if(count($recentlyplayed) == 0):?>
-							<span id="NoTagline">No played games</span>
-						<?php else: ?>
-							<?php foreach($recentlyplayed as $recentlyplayedplace): ?>
-							<div class="Game">
-								<a href="/game/<?= $recentlyplayedplace->id ?>" title="<?= $recentlyplayedplace->name ?>">
-									<img src="<?= $recentlyplayedplace->getThumbsUrl(180, 101) ?>">
-									<span id="Name"><?= $recentlyplayedplace->name ?></span>
-								</a>
-								<div id="Stats">
-									<div id="OnlinePlayers">Players online: <?= $recentlyplayedplace->current_playing_count ?></div>
-									<div id="Created">Creator: <a href="/users/<?= $recentlyplayedplace->creator->id ?>/profile"><?= $recentlyplayedplace->creator->name ?></a></div>
-								</div>
-							</div>
-							<?php endforeach ?>
-						<?php endif ?>
-
-						
-					</div>
-				</div>
-				<div id="Favourites">
-					<h3>Favourites</h3>
-					<div id="Games">
-						<span id="NoTagline">No favourites yet</span>
-					</div>
-				</div>
-				
+<main class="app-main p-0">
+	<section class="home-hero">
+		<div class="container">
+			<h1 class="home-title">Hi there, <?= htmlspecialchars($user->name, ENT_QUOTES, 'UTF-8') ?></h1>
+			<div class="home-subtitle">
+				<?php if ($user->getLatestStatus() != null): ?>
+					"<?= htmlspecialchars($user->getLatestStatus()->content, ENT_QUOTES, 'UTF-8') ?>"
+				<?php else: ?>
+					What's going on?
+				<?php endif; ?>
 			</div>
-			<div id="FeedsContainer">
-				<h2>Your feed</h2>
-				<div id="Submit">
-					<?php if(isset($_SESSION['ANORRL$Home$StatusError'])): ?>
-						<?php if($_SESSION['ANORRL$Home$StatusError']): ?>
-							<div class="Error"><?= $_SESSION['ANORRL$Home$StatusResult'] ?></div>
-						<?php else: ?>
-							<div class="Success">Success!!!!!!!!!!
+			<button class="join-btn">join a game ></button>
+		</div>
+	</section>
+
+	<div class="container dashboard-shell pb-5">
+		<div class="row g-4">
+			<div class="col-lg-3 d-flex justify-content-center">
+				<img
+					src="/thumbs/player?id=<?= $user->id ?>&sxy=250"
+					alt="<?= htmlspecialchars($user->name, ENT_QUOTES, 'UTF-8') ?>"
+					style="
+						width: 300px;
+						height: 300px;
+						border-radius: 50%;
+						margin-top: 25px;
+					">
+			</div>
+
+			<div class="col-lg-9">
+				<section id="FeedsContainer" class="dashboard-panel feed-panel">
+					<div class="d-flex justify-content-between align-items-center mb-3">
+						<h2 class="feed-heading mb-0">My Feed</h2>
+					</div>
+
+					<?php if (isset($_SESSION['ANORRL$Home$StatusError'])): ?>
+						<div class="alert <?= $_SESSION['ANORRL$Home$StatusError'] ? 'alert-danger' : 'alert-success' ?> mb-3">
+							<?= $_SESSION['ANORRL$Home$StatusResult'] ?>
+						</div>
+					<?php endif; ?>
+
+					<form method="POST" class="mb-4">
+						<div class="row g-3 align-items-end">
+							<div class="col-md-10">
+								<textarea
+									class="form-control feed-composer"
+									name="ANORRL$Home$Status$Text"
+									rows="3"
+									placeholder="What's going on?"></textarea>
 							</div>
-						<?php endif ?>
-					<?php endif ?>
-					<form method="POST">
-						<input name="ANORRL$Home$Status$Text" type="text" minlength="4" maxlength="64" placeholder="What are you feeling today?">
-						<input name="ANORRL$Home$Status$Submit" type="submit" value="Submit Status">
+							<div class="col-md-2 d-grid">
+								<input
+									class="btn btn-primary feed-submit"
+									type="submit"
+									name="ANORRL$Home$Status$Submit"
+									value="post..">
+							</div>
+						</div>
 					</form>
-				</div>
-				<div id="Feeds">
-					
-				</div>
-				<div id="Pager" style="display:none">
-					<a href="javascript:ANORRL.Home.DeadvanceFeed()" id="BackPager">&lt;&lt; Back</a> <span id="PageCounter">Page 1 of 1</span> <a href="javascript:ANORRL.Home.AdvanceFeed()" id="NextPager">Next &gt;&gt;</a>
-				</div>	
+
+					<table id="Feeds" class="table table-borderless mb-0"></table>
+
+					<div id="Pager" class="feed-pager d-flex justify-content-between align-items-center mt-3" style="display:none;">
+						<a id="BackPager" href="javascript:ANORRL.Home.DeadvanceFeed()">Previous</a>
+						<div id="PageCounter" class="small text-muted"></div>
+						<a id="NextPager" href="javascript:ANORRL.Home.AdvanceFeed()">Next</a>
+					</div>
+				</section>
 			</div>
 		</div>
 	</div>
-</div>
-<div id="Clearer"></div>
+</main>
+
 <?php
 	$page->loadFooter();
 	unset($_SESSION['ANORRL$Home$StatusError']);

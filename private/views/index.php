@@ -1,59 +1,85 @@
 <?php
-	use anorrl\utilities\FileSplasher;
-	use anorrl\utilities\UserUtils;
-	use anorrl\UserSettings;
 	use anorrl\Page;
 
-	$page = new Page("index");
-	$page->addStylesheet("/css/new/frontpage.css?v=6");
+	$messages = [
+		"welcome to zomium.",
+		"hello",
+		"Z-Z-ZOMIUM",
+		"zonium",
+		"this is work in progress so im still working on it",
+		"this website is for old versions of a minecraft server called zomium",
+		"android clients soon",
+		"join discord",
+		"zomium is free"
+	];
+
+	$page = new Page("Zomium", "index");
 	$page->loadHeader();
-
-	$settings = SESSION ? SESSION->settings : UserSettings::Get();
-
 ?>
-
-		<div id="Details">
-			<h2>ZOMIUM</h2>
-			<code>
-				Zomium is a revival that is so much work in progress also this page will be edited btw
-				<br><br>
-				This is a 2016E Private Revival created by <a href="/users/1/profile">xloang</a> 
-				<br><br>
-				this page will be edited.
-				<br><br>
-				<span style="font-size: 10px; color: #CCC; display: block; width: 100%; text-align: center">also this shit does have discord server</span>
-			</code>
+<style>
+body {
+	background: #0d1117 !important;
+}
+.landing-shell {
+	position: relative;
+	min-height: calc(100vh - 140px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4rem 1.25rem 5rem;
+	overflow: hidden;
+	z-index: 0;
+}
+.landing-bg {
+	position: absolute;
+	inset: 0;
+	background:
+		linear-gradient(180deg, rgba(9,15,25,.6), rgba(9,15,25,.85)),
+		url('/public/images/xmas_small.jpg') center/cover no-repeat;
+	filter: blur(6px);
+	transform: scale(1.05);
+	z-index: 0;
+}
+.landing-overlay {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(180deg, rgba(0,0,0,.1), rgba(0,0,0,.4));
+	z-index: 1;
+}
+.landing-content {
+	position: relative;
+	z-index: 2;
+	width: min(100%, 1120px);
+	text-align: center;
+}
+.landing-logo {
+	width: min(92vw, 760px);
+	margin-bottom: 2rem;
+}
+.landing-message {
+	display: block;
+	width: 100%;
+	margin: 0 auto;
+	padding: 1.2rem;
+	color: #f4f6f8;
+	font-size: 1.4rem;
+	font-weight: 700;
+	text-align: center;
+	background: rgba(0,0,0,0.5);
+	border-radius: 1px;
+	backdrop-filter: blur(6px);
+}
+</style>
+<main class="app-main p-0">
+	<section class="landing-shell">
+		<div class="landing-bg"></div>
+		<div class="landing-overlay"></div>
+		<div class="landing-content">
+			<img class="landing-logo" src="/public/images/ZoniumBIG2.png" alt="Zomium">
+			<div class="landing-message">
+				<?= htmlspecialchars($messages[array_rand($messages)], ENT_QUOTES, 'UTF-8') ?>
+			</div>
 		</div>
-	</div>
-	
-	
-	<div id="NewUsersContainer">
-		<h3>Random Users!</h3>
-		<table id="NewUsersBox">
-			<?php 
-				$users = UserUtils::GetRandomUsers(6);
-				$users_count = count($users);
-			?>
-			<tr>
-				<?php foreach($users as $user): ?>
-				<td>
-					<div class="User" title="<?= $user->name ?>">
-						<a href="/users/<?= $user->id ?>/profile">
-							<img src="<?= $user->getThumbsUrl(100) ?>">
-							<span><?= $user->name ?></span>
-						</a>
-					</div>
-				</td>
-				<?php endforeach;
-					if($users_count < 6) {
-						$count = 6 - $users_count;
-						for($i = 0; $i < $count; $i++) {
-							echo "<td></td>";
-						}
-					}
-				?>
-			</tr>
-		</table>
-	</div>
-
-	
+	</section>
+</main>
+<?php $page->loadFooter(); ?>

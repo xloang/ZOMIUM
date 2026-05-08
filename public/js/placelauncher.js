@@ -17,7 +17,7 @@ if (!Object.keys) {
 /*
 <table class="Server">
 	<td id="PlayersBox">
-		<a title="Player" id="Player" href="/"><img src="/public/images/avatar.png"></a>
+		<a title="Player" id="Player" href="/"><img src="/images/avatar.png"></a>
 		
 	</td>
 	<td id="JoinBox" width="150">
@@ -40,64 +40,24 @@ ANORRL.PlaceLauncher  = {
 			if(data == "") {
 				alert("You need to be logged in to play!");
 				return;
-			} else if(!data.startsWith("anorrl-player")) {
+			} else if(!data.startsWith("anorrl-")) {
 				alert(data);
 				return;
 			}
 			window.open(data, "_self");
-
-			$("#LaunchingGameContainer").css("opacity", 1);
-			$("#LaunchingGameContainer").css("pointer-events", "all");
-
-			// im sorry
-			window.setTimeout(function() {
-				$("#LoadingAreaContainer").css("display", "none");
-				$("#DownloadClientContainer").css("display", "inline");
-
-				window.setTimeout(function() {
-					$("#LaunchingGameContainer").css("opacity", 0);
-					$("#LaunchingGameContainer").css("pointer-events", "none");
-					
-					window.setTimeout(function() {
-						$("#LoadingAreaContainer").css("display", "inline");
-						$("#DownloadClientContainer").css("display", "none");
-					}, 1000);
-				}, 5000);
-			}, 2500);
 		});
-
-		
 	},
 
 	EditPlace: function(placeId) {
-		$.post("/api/ticketer", {editID: placeId}, function(data) {
+		$.post("/api/ticketer", {editID: placeId, }, function(data) {
 			if(data == "") {
 				alert("You need to be logged in to play!");
 				return;
-			} else if(!data.startsWith("anorrl-studio")) {
+			} else if(!data.startsWith("anorrl-")) {
 				alert(data);
 				return;
 			}
 			window.open(data, "_self");
-
-			$("#LaunchingGameContainer").css("opacity", 1);
-			$("#LaunchingGameContainer").css("pointer-events", "all");
-
-			// im sorry
-			window.setTimeout(function() {
-				$("#LoadingAreaContainer").css("display", "none");
-				$("#DownloadStudioContainer").css("display", "inline");
-
-				window.setTimeout(function() {
-					$("#LaunchingGameContainer").css("opacity", 0);
-					$("#LaunchingGameContainer").css("pointer-events", "none");
-					
-					window.setTimeout(function() {
-						$("#LoadingAreaContainer").css("display", "inline");
-						$("#DownloadStudioContainer").css("display", "none");
-					}, 1000);
-				}, 5000);
-			}, 2500);
 		});
 	},
 	
@@ -126,30 +86,11 @@ ANORRL.PlaceLauncher  = {
 				if(data == "") {
 					alert("You need to be logged in to play!");
 					return;
-				} else if(!data.startsWith("anorrl-player")) {
+				} else if(!data.startsWith("anorrl-")) {
 					alert(data);
 					return;
 				}
 				window.open(data, "_self");
-
-				$("#LaunchingGameContainer").css("opacity", 1);
-				$("#LaunchingGameContainer").css("pointer-events", "all");
-
-				// im sorry
-				window.setTimeout(function() {
-					$("#LoadingAreaContainer").css("display", "none");
-					$("#DownloadClientContainer").css("display", "inline");
-
-					window.setTimeout(function() {
-						$("#LaunchingGameContainer").css("opacity", 0);
-						$("#LaunchingGameContainer").css("pointer-events", "none");
-						
-						window.setTimeout(function() {
-							$("#LoadingAreaContainer").css("display", "inline");
-							$("#DownloadClientContainer").css("display", "none");
-						}, 1000);
-					}, 5000);
-				}, 2500);
 			});
 		});
 
@@ -180,7 +121,7 @@ ANORRL.PlaceLauncher  = {
 			}
 		});
 
-		$.get("/api/gameservers/get", {placeId: placeid}, function(data) {
+		$.get("/api/gameservers", {placeId: placeid}, function(data) {
 			
 			var servers = data;
 
@@ -200,7 +141,6 @@ ANORRL.PlaceLauncher  = {
 					var template = ANORRL.PlaceLauncher.CreateServerElement(placeid, server['id'], playerCount, maxPlayerCount);
 					for (var pkey in players) {
 						var player = players[pkey];
-						// what the fuck is wrong with me
 						template.find("#PlayersBox").append("<a title=\""+player['name']+"\" id=\"Player\" href=\"/users/"+player['id']+"/profile\"><img src=\"/thumbs/headshot?id="+player['id']+"\"></a>");
 					}
 					

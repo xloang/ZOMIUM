@@ -27,7 +27,6 @@ var categoryFileTypes = {
 	5:".txt,.lua",
 	8: ".rbxm,.rbxmx",
 	24: ".rbxm,.rbxmx",
-	61: ".rbxm,.rbxmx",
 }
 
 var versionshit = [
@@ -69,6 +68,12 @@ ANORRL.Create = {
 			page = this.CurrentPage;
 		}
 
+		if(versionshit.includes(Number(category))) {
+			$("#AssetYear").css("display", "none");
+		} else {
+			$("#AssetYear").css("display", "table-row");
+		}
+
 		if(category != 8) {
 			$("#HatUploadRules").css("display", "none");
 		} else {
@@ -98,12 +103,7 @@ ANORRL.Create = {
 		});
 
 		$("li[data_category="+category+"]").attr("selected", "");
-		if(!Number(category)) {
-			ChangeUrl("", "/create/"+category);
-		} else {
-			ChangeUrl("", "/create/"+$("li[data_category="+category+"]").find("a").html().toLowerCase().replaceAll("-", "").replaceAll(" ", ""));
-		}
-		
+		ChangeUrl("", "/create/"+$("li[data_category="+category+"]").find("a").html().toLowerCase().replaceAll("-", ""));
 
 		var categorylabel = $("li[data_category="+category+"]").find("a").html();
 		if(categorylabel.endsWith("s") && categorylabel != "Pants" && categorylabel != "Meshes") {
@@ -116,27 +116,7 @@ ANORRL.Create = {
 
 		$("#TypaLabel").html(categorylabel);
 		if(categorylabel == "Pants" || categorylabel == "Shirt") {
-			var template_name = categorylabel+"Template";
-			var template_image_path = "/public/images/"+template_name+".png";
-			
-			var template_window = $(".Window#ShirtPantsTemplate");
-			var template_link = template_window.find("#Contents a");
-			var template_image = template_link.find("img");
-			
-			template_link.attr("download", template_name+".png");
-			template_link.attr("href", template_image_path);
-			template_image.attr("src", template_image_path);
-
-			template_window.find("#Name > #Title").html(categorylabel+" Template");
-			template_window.css("display", "block");
-		} else {
-			$(".Window#ShirtPantsTemplate").css("display", "none");
-		}
-
-		if(categorylabel == "Body Type") {
-			$("#bodytyperow").removeAttr("style");
-		} else {
-			$("#bodytyperow").css("display", "none");
+			$("#TypaLabel").html(categorylabel + " (<a target='_blank' href='/images/"+categorylabel+"Template.png'>Template</a>)");
 		}
 		
 		$("#files").attr("accept", categoryFileTypes[category]);
@@ -193,7 +173,7 @@ ANORRL.Create = {
 					template.find("#Pricing").remove();
 					
 
-					template.find("#NameAndThumbs > img").attr("src", asset['thumbnail']);
+					template.find("#NameAndThumbs > img").attr("src", "/thumbs/?id="+asset['id']+"&sxy=130");
 
 					template.find("#NameAndThumbs > span").html(asset['name']);
 					template.find("#NameAndThumbs").attr("href", "/"+asset['name'].replaceAll(regex,"").trim().replaceAll(" ", "-").toLowerCase()+"-item?id="+asset['id']);
@@ -266,8 +246,6 @@ $(function(){
 		"meshes": 4,
 		"lua": 5,
 		"animations": 24,
-		"body": "body",
-		"emotes": 61,
 	}
 
 	ANORRL.Create.GrabAssets(categories[url]);

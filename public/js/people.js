@@ -46,7 +46,7 @@ ANORRL.People = {
 
 		var $username = $("<td></td>");
 		$username.css("text-align", "center");
-		$username.append($("<img src='/public/images/OnlineStatusIndicator_Is"+statusLabel+".png'> <a href='/users/"+data['id']+"/profile'>"+data['name']+"</a>"))
+		$username.append($("<img src='/images/OnlineStatusIndicator_Is"+statusLabel+".png'> <a href='/users/"+data['id']+"/profile'>"+data['name']+"</a>"))
 
 		var $userbio = $("<td></td>");
 		$userbio.css("word-break", "break-word");

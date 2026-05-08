@@ -100,7 +100,7 @@
 	</table>
 	<?php else: ?>
 		<center>
-			<p style="font-size: 16px">Seems like you have no friends! :[</p>
+			<p style="font-size: 16px">you dont have any friends...</p>
 		</center>
 	<?php endif ?>
 </div>

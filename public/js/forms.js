@@ -80,7 +80,7 @@ ANORRL.Register = {
 	},
 	CheckAccessKey: function(element, input) {
 		if(input.length != 0) {
-			if(input.length == 36) {
+			if(input.length == 32) {
 				$("#v_access").html("");
 				$(element).removeClass("Invalid");
 				$(element).addClass("Valid");

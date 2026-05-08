@@ -15,30 +15,46 @@ ANORRL.Item = {
 		});
 	},
 	Purchasing: {
-		OpenPurchasePanel: function() {
+		AllowedShittyIDs: [
+			"Lights",
+			"Cones",
+			"FreeItem"
+		],
+		OpenPurchasePanel: function(panel) {
 			$("#PurchasePanel").css("display", "block");
+			if(panel == "cones") {
+				$("#PurchaseCones").css("display", "block");
+			} else if(panel == "lights") {
+				$("#PurchaseLights").css("display", "block");
+			}
 		},
 		PurchaseItem: function() {
 			if($("#ModalPopup > div:visible").size() == 1) {
 				var prompt = $("#ModalPopup > div:visible");
 
 				prompt.css("display","none");
+				
+				var id = prompt.attr("id").replaceAll("Purchase", "");
 
-				ANORRL.Item.State = 1;
-				$("#ModalPopup #PurchaseProcessing").css("display", "block");
-				window.setTimeout(function() {
-					$.post("/api/purchase", { asset_id: Number($("#ModalPopup").attr("data-assetid")) }, function(data) {
-						if(data['error']) {
-							ANORRL.Item.Purchasing.PresentError(data['message']);
-						} else {
-							$("#ModalPopup > div:visible").each(function() {
-								$(this).css("display", "none");
-							});
-							ANORRL.Item.State = 2;
-							$("#PurchaseSuccess").css("display", "block");
-						}
-					})
-				}, 1500);
+				if(this.AllowedShittyIDs.includes(id)) {
+					ANORRL.Item.State = 1;
+					$("#ModalPopup #PurchaseProcessing").css("display", "block");
+					window.setTimeout(function() {
+						$.post("/api/purchase", { asset_id: Number($("#ModalPopup").attr("data-assetid")), typatransaction: id }, function(data) {
+							if(data['error']) {
+								ANORRL.Item.Purchasing.PresentError(data['message']);
+							} else {
+								$("#ModalPopup > div:visible").each(function() {
+									$(this).css("display", "none");
+								});
+								ANORRL.Item.State = 2;
+								$("#PurchaseSuccess").css("display", "block");
+							}
+						})
+					}, 1500);
+				} else {
+					ANORRL.Item.Purchasing.PresentError("Something went wrong during the transaction... Sorry...")
+				}
 			} else {
 				ANORRL.Item.Purchasing.PresentError("Something went wrong during the transaction... Sorry...");
 			}
@@ -71,33 +87,6 @@ ANORRL.Item = {
 			}
 
 		}
-	},
-	Has3DEnabled: function() {
-		return $(".thumbnail-span").length != 0;
-	},
-	Load3D: function() {
-		if(!this.Has3DEnabled())
-			return;
-
-		$(".thumbnail-holder > img ").css("display", "none");
-		$(".thumbnail-span").css("display", "block");
-
-		$(".thumbnail-span").load3DThumbnail("asset", function(canvas) {
-			console.log("3D: complete!");
-		}, function() {
-			console.log("3D: I dont like you");
-			$(".thumbnail-holder > img ").css("display", "block");
-			$(".thumbnail-span").css("display", "none");
-		});
-	},
-	Load2D: function() {
-		if(!this.Has3DEnabled())
-			return;
-
-		$(".thumbnail-holder > img ").css("display", "block");
-		$(".thumbnail-span").css("display", "none");
-
-		$(".thumbnail-span canvas").remove();
 	}
 };
 
@@ -113,17 +102,4 @@ $(function() {
 	$("#PurchasePanel").on("click", function() {
 		ANORRL.Item.Purchasing.ClosePurchasePanel();
 	})
-
-	if(ANORRL.Item.Has3DEnabled()) {
-		$("#ThumbnailSwitcher").on("click", function() {
-			if($(this).attr("data-3d") == "true") {
-				$(this).attr("data-3d", false);
-				ANORRL.Item.Load2D();
-			} else {
-				$(this).attr("data-3d", true);
-				ANORRL.Item.Load3D();
-			}
-		})
-	}
-
 })

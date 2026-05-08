@@ -1,6 +1,6 @@
 <?php
 	$currentUser = null;
-	if(defined('SESSION') && SESSION && isset(SESSION->user)) {
+	if (defined('SESSION') && SESSION && isset(SESSION->user)) {
 		$currentUser = SESSION->user;
 	}
 
@@ -15,25 +15,33 @@
 	<link rel="icon" type="image/x-icon" href="/favicon.ico">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-	<link rel="stylesheet" href="/public/css/new/app.css?v=1">
-
-	<?php foreach($this->stylesheets as $stylesheet): ?>
+	<link rel="stylesheet" href="/public/css/new/app.css?v=8">
+	<?php foreach ($this->stylesheets as $stylesheet): ?>
 		<link rel="stylesheet" href="<?= htmlspecialchars($stylesheet, ENT_QUOTES, 'UTF-8') ?>">
 	<?php endforeach ?>
-
-	<?php foreach($this->metas as $meta): ?>
+	<?php foreach ($this->metas as $meta): ?>
 		<meta property="<?= htmlspecialchars($meta['type'], ENT_QUOTES, 'UTF-8') ?>" content="<?= htmlspecialchars($meta['contents'], ENT_QUOTES, 'UTF-8') ?>">
 	<?php endforeach ?>
-
-	<?php foreach($this->scripts as $script): ?>
+	<?php foreach ($this->scripts as $script): ?>
 		<script src="<?= htmlspecialchars($script, ENT_QUOTES, 'UTF-8') ?>"></script>
 	<?php endforeach ?>
 </head>
 <body <?= $this->settings->nightbg ? "night" : "" ?>>
+<style>
+.app-navbar .nav-link:hover,
+.app-subnav .nav-link:hover,
+.nav-scroller-inner > a.nav-link:hover {
+	text-decoration: underline;
+	text-decoration-color: #6fb7ff;
+	text-decoration-thickness: 2px;
+	text-underline-offset: .45rem;
+}
+</style>
 <div class="app-shell d-flex flex-column min-vh-100">
 	<nav class="navbar navbar-expand-lg navbar-dark app-navbar shadow-sm sticky-top">
 		<div class="container">
 			<a class="navbar-brand d-flex align-items-center gap-2" href="<?= $currentUser ? '/my/home' : '/' ?>">
+				<img src="/public/images/legacy/finnobe3llogo.png" alt="Zomium" class="app-brand-logo">
 				<span class="app-brand-text">Zomium</span>
 			</a>
 
@@ -44,15 +52,16 @@
 			<div class="collapse navbar-collapse" id="navbarMain">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center">
 					<li class="nav-item"><a class="nav-link" href="<?= $currentUser ? '/my/home' : '/' ?>">Home</a></li>
+					<?php if ($currentUser): ?>
+						<li class="nav-item"><a class="nav-link" href="/users/<?= $currentUser->id ?>/profile">Profile</a></li>
+					<?php endif; ?>
 					<li class="nav-item"><a class="nav-link" href="/games">Games</a></li>
 					<li class="nav-item"><a class="nav-link" href="/catalog">Catalog</a></li>
 					<li class="nav-item"><a class="nav-link" href="/download">Download</a></li>
-					<?php if($currentUser): ?>
-						<li class="nav-item"><a class="nav-link" href="/users/<?= $currentUser->id ?>/profile">Profile</a></li>
-					<?php endif; ?>
+					<li class="nav-item"><a class="nav-link" href="/badges">Badges</a></li>
 				</ul>
 
-				<?php if(!$currentUser): ?>
+				<?php if (!$currentUser): ?>
 					<div class="d-flex flex-column flex-lg-row gap-2 my-3 my-lg-0">
 						<a class="btn btn-outline-light" href="/login">Login</a>
 						<a class="btn btn-primary" href="/register">Register</a>
@@ -62,7 +71,7 @@
 						<li class="nav-item">
 							<a class="nav-link icon-nav-link" href="/my/friends" title="Friend requests">
 								<i class="fas fa-user-friends"></i>
-								<?php if($pendingRequests > 0): ?>
+								<?php if ($pendingRequests > 0): ?>
 									<span class="badge rounded-pill bg-danger badge-notification"><?= $pendingRequests ?></span>
 								<?php endif; ?>
 							</a>
@@ -75,10 +84,12 @@
 								<span><?= htmlspecialchars($currentUser->name, ENT_QUOTES, 'UTF-8') ?></span>
 							</a>
 							<ul class="dropdown-menu dropdown-menu-end shadow">
+								<li><a class="dropdown-item" href="/my/home"><i class="fas fa-columns me-2"></i>Dashboard</a></li>
 								<li><a class="dropdown-item" href="/users/<?= $currentUser->id ?>/profile"><i class="fas fa-user me-2"></i>Profile</a></li>
 								<li><a class="dropdown-item" href="/my/stuff"><i class="fas fa-box-open me-2"></i>Inventory</a></li>
 								<li><a class="dropdown-item" href="/my/character"><i class="fas fa-tshirt me-2"></i>Character</a></li>
-								<?php if($currentUser->isAdmin()): ?>
+								<li><a class="dropdown-item" href="/my/places"><i class="fas fa-map me-2"></i>Places</a></li>
+								<?php if ($currentUser->isAdmin()): ?>
 									<li><a class="dropdown-item" href="/create"><i class="fas fa-plus me-2"></i>Create</a></li>
 								<?php endif; ?>
 								<li><a class="dropdown-item" href="/download"><i class="fas fa-download me-2"></i>Download</a></li>
@@ -92,20 +103,26 @@
 		</div>
 	</nav>
 
-	<?php if($currentUser): ?>
+	<?php if ($currentUser): ?>
 		<div class="app-subnav">
 			<div class="container">
 				<div class="nav nav-pills nav-finobe flex-nowrap overflow-auto py-2">
+					<?php if ($currentUser->isAdmin()): ?>
+						<a class="nav-link" href="/create"><i class="fas fa-plus me-2"></i>Create</a>
+					<?php endif; ?>
 					<a class="nav-link" href="/my/character"><i class="fas fa-user me-2"></i>Character</a>
 					<a class="nav-link" href="/my/stuff"><i class="fas fa-box-open me-2"></i>Inventory</a>
 					<a class="nav-link" href="/my/friends"><i class="fas fa-user-friends me-2"></i>Friends</a>
-					<?php if($currentUser->isAdmin()): ?>
-						<a class="nav-link" href="/create"><i class="fas fa-plus me-2"></i>Create</a>
-					<?php endif; ?>
+					<a class="nav-link" href="/my/places"><i class="fas fa-map me-2"></i>Places</a>
 				</div>
 			</div>
 		</div>
 	<?php endif; ?>
+
+	<div class="DisplayMobileWarning alert alert-warning rounded-0 border-0 text-center mb-0 d-none">
+		Mobile support is limited on this build.
+		<button class="btn btn-sm btn-dark ms-2" onclick="ANORRL.HideMobileWarning()">Continue</button>
+	</div>
 
 	<main class="app-main flex-fill">
 		<div class="container">
