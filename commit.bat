@@ -25,5 +25,5 @@ echo [3] Github'a gonderiliyor...
 git push
 
 echo.
-echo Islem tamamlandi!
+echo Islem tamamlandi.
 pause

@@ -1,5 +1,10 @@
 # ZOMIUM
 
+a 2016E revival that frontend has inspired from finobe.
+
+Made by xloang25.
+
+
 arbiter is [here](https://github.com/xloang/arbiter)
 
 please work on this shit ✡️
@@ -17,5 +22,4 @@ also this will be released as private when summer breakout comes also i will buy
 ## new updates are coming
 
 thank you 
-
 

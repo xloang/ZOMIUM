@@ -17,6 +17,7 @@ if (PHP_VERSION_ID < 50600) {
     throw new RuntimeException($err);
 }
 
+// why is this used for
 require_once __DIR__ . '/composer/autoload_real.php';
 
 return ComposerAutoloaderInite9b45928129cab742a8bb70992074cec::getLoader();

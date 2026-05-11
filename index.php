@@ -41,6 +41,6 @@
 	}
 	
 	require_once __DIR__ . "/router.php";
-
+// todo: understand what is this shitty ahh page
 	exit();
 ?>
