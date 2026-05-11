@@ -69,7 +69,7 @@ a {
 a:hover,
 a[selected] {
 	color: var(--link-hover);
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 #DidYouKnow {

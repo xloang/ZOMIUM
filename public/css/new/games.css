@@ -163,6 +163,6 @@
 li[selected] > a,
 li[selected] > a {
 	font-weight: bold;
-	text-decoration: underline;
+	text-decoration: none;
 	background: #1a1a1a !important;
 }

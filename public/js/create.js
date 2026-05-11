@@ -27,6 +27,8 @@ var categoryFileTypes = {
 	5:".txt,.lua",
 	8: ".rbxm,.rbxmx",
 	24: ".rbxm,.rbxmx",
+	61: ".rbxm,.rbxmx",
+	"body": ".rbxm,.rbxmx"
 }
 
 var versionshit = [
@@ -246,8 +248,9 @@ $(function(){
 		"meshes": 4,
 		"lua": 5,
 		"animations": 24,
+		"body": "body",
+		"emotes": 61,
 	}
 
 	ANORRL.Create.GrabAssets(categories[url]);
 });
-

@@ -106,62 +106,364 @@
 	$page->loadHeader();
 ?>
 <div class="Asset" template>
-	<a id="NameAndThumbs">
-		<img src="">
-		<div id="Pricing"></div>
-		<span>AssetName</span>
+	<a id="NameAndThumbs" class="create-asset-card">
+		<div class="create-asset-thumb">
+			<img src="" alt="Asset thumb">
+		</div>
+		<div class="create-asset-copy">
+			<div id="Pricing"></div>
+			<span>AssetName</span>
+		</div>
 	</a>
 </div>
 <style>
-	#CreationPanel #UploadPanel {
-		background: linear-gradient(#0a0a0a,#1a1a1a);
+	#StuffContainer {
+		color: #eef2f6;
+	}
+
+	.create-shell {
+		display: grid;
+		grid-template-columns: 280px minmax(0, 1fr);
+		gap: 1.25rem;
+		align-items: start;
+	}
+
+	.create-hero {
+		margin-bottom: 1.25rem;
+		padding: 1.6rem 1.7rem;
+		background: #18181b;
+		border: 1px solid rgba(255,255,255,.08);
+		border-radius: .45rem;
+	}
+
+	.create-hero h1 {
+		margin: 0;
+		font-size: 2rem;
+		font-weight: 700;
+		color: #fff;
+	}
+
+	.create-hero p {
+		margin: .5rem 0 0;
+		color: #b9c2cd;
+	}
+
+	#StuffNavigation {
+		position: sticky;
+		top: 6.5rem;
+	}
+
+	#StuffNavigation ul,
+	.create-panel,
+	.create-rule-card,
+	#createUploadCard,
+	#AssetsContainer {
+		background: #18181b;
+		border: 1px solid rgba(255,255,255,.08);
+		border-radius: .4rem;
 	}
 
 	#StuffNavigation ul {
-		background: linear-gradient(#222, #111);
+		list-style: none;
+		margin: 0;
+		padding: 1rem;
 	}
 
-	
-	/*#StuffNavigation li {
-		border-bottom: 2px solid black;
-		padding: 3px 15px;
+	#StuffNavigation h4 {
+		margin: 0 0 .75rem;
+		color: #fff;
+		font-size: 1rem;
+		text-transform: uppercase;
+		letter-spacing: .08em;
 	}
 
-	#StuffNavigation li:nth-child(even) {
-		background: #111;
+	#StuffNavigation li {
+		display: block;
+		margin-bottom: .45rem;
+		padding: .72rem .85rem;
+		background: #121214;
+		border: 1px solid rgba(255,255,255,.05);
+		border-radius: .35rem;
+		color: #e6edf6;
+		cursor: pointer;
+		transition: background-color .15s ease, border-color .15s ease, color .15s ease;
 	}
 
-	#StuffNavigation li:last-child {
-		border: none;
+	#StuffNavigation li[selected],
+	#StuffNavigation li:hover {
+		background: #4d8fe8;
+		border-color: #4d8fe8;
+		color: #fff;
 	}
 
-	#StuffNavigation ul {
-		padding: 0px;
-		*margin: 15px;
+	#StuffNavigation li a {
+		color: inherit !important;
+		text-decoration: none !important;
+		font-weight: 700;
+		display: block;
 	}
 
-	#StuffNavigation li hr {
-		height: 0px;
-		margin: 0px;
-	}*/
+	#StuffNavigation hr {
+		margin: .9rem 0;
+		border-color: rgba(255,255,255,.08);
+	}
 
-	#StuffNavigation li:hover a {
-		text-decoration: underline;
-		color: #ffc63f;
+	.create-main {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.create-rule-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.create-rule-card {
+		padding: 1.1rem 1.2rem;
+		border-radius: .4rem;
+	}
+
+	.create-rule-card h3,
+	.create-panel-title,
+	.create-assets-title {
+		margin: 0 0 .75rem;
+		font-size: 1.2rem;
+		font-weight: 700;
+		color: #fff;
+	}
+
+	.create-rule-card ul {
+		margin: 0;
+		padding-left: 1.15rem;
+		color: #c9d1db;
+	}
+
+	.create-rule-card p,
+	.create-panel-subtitle,
+	.create-assets-subtitle,
+	.create-note {
+		color: #b4bdc8;
+	}
+
+	#createUploadCard,
+	#AssetsContainer {
+		padding: 1.25rem;
+		border-radius: .4rem;
+	}
+
+	.create-panel-head {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.create-panel-head h2 {
+		margin: 0;
+		color: #fff;
+		font-size: 1.45rem;
+		font-weight: 700;
+	}
+
+	.create-form-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.create-form-row-full {
+		grid-column: 1 / -1;
+	}
+
+	.create-field label {
+		display: block;
+		margin-bottom: .45rem;
+		color: #e7edf5;
+		font-weight: 700;
+	}
+
+	.create-field textarea {
+		min-height: 140px;
+		resize: vertical;
+	}
+
+	.create-field .form-control,
+	.create-field .form-select {
+		border-radius: .35rem !important;
+		background: #2f3137 !important;
+	}
+
+	.create-file-picker {
+		display: flex;
+		align-items: center;
+		gap: .8rem;
+		flex-wrap: wrap;
+	}
+
+	.create-file-picker label[for="files"] {
+		margin: 0;
+		display: inline-flex;
+		align-items: center;
+		padding: .7rem 1rem;
+		background: #4d8fe8;
+		border: 1px solid #4d8fe8;
+		border-radius: .35rem;
+		color: #fff;
+		cursor: pointer;
+		font-weight: 700;
+	}
+
+	#filename {
+		color: #b7c0ca;
+	}
+
+	.create-toggle-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: .85rem;
+	}
+
+	.create-toggle {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: .85rem 1rem;
+		background: #111214;
+		border: 1px solid rgba(255,255,255,.06);
+		border-radius: .35rem;
+	}
+
+	.create-submit-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-top: 1rem;
+	}
+
+	.create-submit-row input[type="submit"] {
+		min-width: 160px;
+		padding: .8rem 1.4rem;
+		background: #4d8fe8;
+		border: 0;
+		border-radius: .35rem;
+		color: #fff;
+		font-weight: 700;
+	}
+
+	.create-assets-head {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	#AssetsContainer table {
+		width: 100%;
+		border-collapse: separate;
+		border-spacing: 0 1rem;
+	}
+
+	#AssetsContainer td {
+		width: 25%;
+		padding-right: 1rem;
+		vertical-align: top;
+	}
+
+	#AssetsContainer td:last-child {
+		padding-right: 0;
+	}
+
+	.create-asset-card {
+		display: block;
+		background: #111214;
+		border: 1px solid rgba(255,255,255,.06);
+		border-radius: .4rem;
+		color: #eef2f6 !important;
+		text-decoration: none !important;
+		overflow: hidden;
+	}
+
+	.create-asset-thumb {
+		aspect-ratio: 1 / 1;
+		padding: 1rem;
+		background: #0f0f10;
+		border-bottom: 1px solid rgba(255,255,255,.06);
+	}
+
+	.create-asset-thumb img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		display: block;
+	}
+
+	.create-asset-copy {
+		padding: .9rem;
+	}
+
+	.create-asset-copy span {
+		display: block;
+		font-weight: 700;
+	}
+
+	#StatusText {
+		color: #c8d0da;
+		margin-bottom: 1rem;
+	}
+
+	#NoAssets {
+		display: none;
+		padding: 1.2rem;
+		background: #111214;
+		border: 1px solid rgba(255,255,255,.06);
+		text-align: center;
+	}
+
+	#Paginator {
+		display: none;
+		margin-top: 1rem;
+		color: #c0c8d1;
+	}
+
+	#Paginator a {
+		color: #fff !important;
+		text-decoration: none !important;
 	}
 
 	.RequiredThing {
-		color: red;
-		font-weight: bold;
+		color: #ff7373;
+		font-weight: 700;
 		user-select: none;
 	}
-	
-	#StuffContainer h4 {
-		margin: 0px;
-		width: 100%;
-		padding: 5px 0px;
-		margin-bottom: 10px;
-		text-align: center;
+
+	@media (max-width: 991.98px) {
+		.create-shell,
+		.create-rule-grid,
+		.create-form-grid,
+		.create-toggle-grid {
+			grid-template-columns: 1fr;
+		}
+
+		#StuffNavigation {
+			position: static;
+		}
+
+		#AssetsContainer td {
+			width: auto;
+			padding-right: 0;
+			display: block;
+			margin-bottom: 1rem;
+		}
+
+		.create-submit-row,
+		.create-panel-head,
+		.create-assets-head {
+			flex-direction: column;
+			align-items: flex-start;
+		}
 	}
 </style>
 <script>
@@ -172,14 +474,15 @@
 	})
 </script>
 <div id="StuffContainer">
-	<h1 style="width: 834px;">
-		<marquee scrollamount="20" direction="right" behavior="alternate">Creation Panel</marquee>
-		<marquee scrollamount="20" behavior="alternate" style="display: block;margin-top: -33px;z-index: 9;" direction="left">Creation Panel</marquee>
-	</h1>
-	<div id="StuffNavigation">	
-								
-		<ul>
-			<h4>Accessories</h4>
+	<section class="create-hero">
+		<h1 class="page-title">Create</h1>
+		<p>Upload and manage assets. This page is back on the older Zomium card language instead of the flat version.</p>
+	</section>
+
+	<div class="create-shell">
+		<div id="StuffNavigation">
+			<ul>
+				<h4>Accessories</h4>
 			<li data_category="8" ><a>Hats</a></li>
 			<li data_category="18"><a>Faces</a></li>
 			<li data_category="11"><a>Shirts</a></li>
@@ -203,124 +506,119 @@
 			<li data_category="1"><a>Images</a></li>
 			<li data_category="5"><a>Lua</a></li>
 			<?php endif ?>
-		</ul>
-	</div><div id="CreationPanel">	
-		<div id="UploadPanel">
-			<div class="Window" id="HatUploadRules" style="width: 100%;">
-				<div id="Name">Hat Uploading Rules</div>
-				<div id="Contents">
+			</ul>
+		</div>
+
+		<div id="CreationPanel" class="create-main">
+			<div class="create-rule-grid">
+				<div class="create-rule-card" id="HatUploadRules">
+					<h3>Hat Uploading Rules</h3>
 					<ul>
-						<li><span class="Number">1.</span>do not use this to upload gears</li>
-						<li><span class="Number">2.</span>do not make a hat that alters the gameplay that can give you an advantage</li>
-						<li><span class="Number">3.</span>if you are adding particle effects, DO NOT HAVE IT BE SUPER OBSTRUCTIVE</li>
-						<li><span class="Number">4.</span>don't use the uploader to upload character meshes</li>
-						<li><span class="Number">5.</span>don't reupload other people's hats. that wouldn't be nice!</li>
+						<li>do not use this to upload gears</li>
+						<li>do not make a hat that alters gameplay and gives you an advantage</li>
+						<li>particle effects are fine, but do not make them screen-blocking</li>
+						<li>do not upload character meshes through the hat uploader</li>
+						<li>do not reupload other people's hats</li>
 					</ul>
-					
-					<div style="margin: 15px;">
-						<p><b>clarification on the 3rd rule:</b></p>	
-						<p>stuff like <a href="/public/images/hatuploaderexample.png" target="_blank">this</a> is fine, what i meant was if the sparkles were like super massive and blocked the view of everything and everyone </p>
-					</div>
+					<p class="create-note mt-3">Example effects are fine as long as they do not swallow the whole screen.</p>
+				</div>
+
+				<div class="create-rule-card" id="GearUploadRules">
+					<h3>Gear Uploading Rules</h3>
+					<ul>
+						<li>do not upload gears that break games such as destructive build tools</li>
+						<li>do not upload gears that actively harm players like swords or guns</li>
+					</ul>
 				</div>
 			</div>
 
-			<div class="Window" id="GearUploadRules" style="width: 100%;">
-				<div id="Name">Gear Uploading Rules</div>
-				<div id="Contents" style="padding: 0px">
-					<ul style="border: none">
-						<li><span class="Number">1.</span>do not upload gears that actively damage a game e.g build tools</li>
-						<li><span class="Number">2.</span>do not upload gears that actively harm players e.g swords or guns</li>
-					</ul>
-				</div>
-			</div>
-			
-			<form method="POST" enctype="multipart/form-data" style="">
-				<div class="Window" style="width: 100%;">
-					<div id="Name">Upload <span id="TypaLabel"></span></div>
-					
-					<div id="Contents">
-						<?php if(isset($_SESSION['ANORRL$CreateAsset$Error']) && isset($_SESSION['ANORRL$CreateAsset$Result'])): ?>
-							<?php if($_SESSION['ANORRL$CreateAsset$Error']): ?>
-							<div id="ErrorTime" style="margin: -10px;margin-bottom: 10px;">Error: <span id="Message"><?= $_SESSION['ANORRL$CreateAsset$Result'] ?></span></div>
-							<?php else: 
-								$uploaded_asset = Asset::FromID($_SESSION['ANORRL$CreateAsset$Result']);
-								?>
-								<?php if(true): ?>
-									<div id="SuccessTime" style="margin: -10px;margin-bottom: 10px;">You've successfully uploaded &quot;<?= $uploaded_asset->name ?>&quot;! <span id="Message">Check it out <a href="/"<?= $uploaded_asset->getUrl() ?>">here</a>!  <a href="javascript:copyToClipboard(<?= $uploaded_asset->getAssetIDSafe() ?>)">(Copy Asset ID)</a></div>
-								<?php else: ?>
-									<!-- Other iterations. -->
-									<div id="SuccessTime" style="margin: -10px;margin-bottom: 10px;">You've successfully uploaded &quot;<a href="/"<?= $uploaded_asset->getUrl() ?>"><?= $uploaded_asset->name ?></a>&quot;! <span id="Message">(<a href="javascript:copyToClipboard(<?= $uploaded_asset->getAssetIDSafe() ?>)">Copy Asset ID</a>)</div>
-									<div id="SuccessTime" style="margin: -10px;margin-bottom: 10px;">You've successfully uploaded a <?= $uploaded_asset->type->label() ?>! <span id="Message">Check it out <a href="/"<?= $uploaded_asset->getUrl() ?>">here!</a></span> (<a href="javascript:copyToClipboard(<?= $uploaded_asset->getAssetIDSafe() ?>)">Copy Asset ID</a>)</div>
-								<?php endif ?>
-							<?php endif ?>
+			<form method="POST" enctype="multipart/form-data">
+				<div id="createUploadCard">
+					<div class="create-panel-head">
+						<div>
+							<h2>Upload <span id="TypaLabel"></span></h2>
+							<p class="create-panel-subtitle">Rounded controls, darker cards, and the old layout rhythm are restored here.</p>
+						</div>
+					</div>
+
+					<?php if(isset($_SESSION['ANORRL$CreateAsset$Error']) && isset($_SESSION['ANORRL$CreateAsset$Result'])): ?>
+						<?php if($_SESSION['ANORRL$CreateAsset$Error']): ?>
+							<div id="ErrorTime" class="alert alert-danger mb-3">Error: <span id="Message"><?= htmlspecialchars($_SESSION['ANORRL$CreateAsset$Result'], ENT_QUOTES, 'UTF-8') ?></span></div>
+						<?php else:
+							$uploaded_asset = Asset::FromID($_SESSION['ANORRL$CreateAsset$Result']);
+						?>
+							<div id="SuccessTime" class="alert alert-success mb-3">
+								You've successfully uploaded &quot;<?= htmlspecialchars($uploaded_asset->name, ENT_QUOTES, 'UTF-8') ?>&quot;.
+								<span id="Message">Check it out <a href="<?= htmlspecialchars($uploaded_asset->getUrl(), ENT_QUOTES, 'UTF-8') ?>">here</a>.</span>
+								<a href="javascript:copyToClipboard(<?= $uploaded_asset->getAssetIDSafe() ?>)">(Copy Asset ID)</a>
+							</div>
 						<?php endif ?>
-						<table style="width: 100%">
-							<tr>
-								<td style="width: 70px;">Name <span class="RequiredThing">*</span></td>
-								<td><input type="text" name="ANORRL$CreateAsset$Name" minlength="3" maxlength="100" required placeholder></td>
-							</tr>
-							<tr>
-								<td>Description</td>
-								<td><textarea name="ANORRL$CreateAsset$Description" maxlength="1000"></textarea></td>
-							</tr>
-							<tr>
-								<td>File <span class="RequiredThing">*</span></td>
-								<td>
-									<label for="files" style="margin-top: 5px;display: inline-block;">Choose file</label>
-									<input id="files" style="display:none;" type="file"  name="ANORRL$CreateAsset$File" required>
-									<label id="filename">No file chosen</label>
-								</td>
-							</tr>
-							<tr style="display: none" id="bodytyperow">
-								<td>Body Type <span class="RequiredThing">*</span></td>
-								<td>
-									<select name="ANORRL$CreateAsset$BodyType" style="margin-top: 5px;">
-										<?php foreach(CharacterMeshType::all() as $type): ?>
-											<option value="<?= $type->ordinal() ?>"><?= $type->label() ?></option>
-										<?php endforeach ?>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td><span style="margin-top: 10px;display: block;">Extras</span></td>
-								<td>
-									<div class="Window" style="margin-top: 5px; ">
-										<div id="Name">Toggles</div>
-										<div id="Contents">
-											<table style="float: left;">
-												<tr>
-													<td><label for="ANORRL_CreateAsset_Public">Public</label></td>
-													<td><input id="ANORRL_CreateAsset_Public" name="ANORRL$CreateAsset$Public" type="checkbox" checked=""></td>
-												</tr>
-												<tr>
-													<td><label for="ANORRL_CreateAsset_CommentsEnabled">Comments</label></td>
-													<td><input id="ANORRL_CreateAsset_CommentsEnabled" name="ANORRL$CreateAsset$CommentsEnabled" type="checkbox" checked=""></td>
-												</tr>
-												<tr>
-													<td><label for="ANORRL_CreateAsset_Purchasable">Purchasable</label></td>
-													<td><input type="checkbox" checked="" id="ANORRL_CreateAsset_Purchasable" name="ANORRL$CreateAsset$Purchasable"></td>
-												</tr>
-											</table>
-											
-											<div style="display: inline;">
-												<img src="/public/images/jane.png" style="width: 70px;margin-left: 10px;border: 2px solid black;">
-											</div>
-											
-											<div style="clear: both;"></div>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><input type="submit" value="Upload" style="margin-top:5px" name="ANORRL$CreateAsset$Submit" onclick="$(this).attr('disabled', 'true'); document.forms[0].submit()"></td>
-							</tr>
-						</table>
-						<div style="font-size: 10px; color: #ccc; font-style: italic; margin-top: 5px;" title="You need to fill those out!"><span class="RequiredThing">*</span> means required fields!</div>
+					<?php endif ?>
+
+					<div id="InfoWarning" class="alert alert-warning mb-3" style="display:none;">
+						Models and package-style uploads may need extra cleanup before they look right in-game.
+					</div>
+
+					<div class="create-form-grid">
+						<div class="create-field">
+							<label for="ANORRL_CreateAsset_Name">Name <span class="RequiredThing">*</span></label>
+							<input class="form-control" id="ANORRL_CreateAsset_Name" type="text" name="ANORRL$CreateAsset$Name" minlength="3" maxlength="100" required>
+						</div>
+
+						<div class="create-field create-form-row-full">
+							<label for="ANORRL_CreateAsset_Description">Description</label>
+							<textarea class="form-control" id="ANORRL_CreateAsset_Description" name="ANORRL$CreateAsset$Description" maxlength="1000"></textarea>
+						</div>
+
+						<div class="create-field">
+							<label>File <span class="RequiredThing">*</span></label>
+							<div class="create-file-picker">
+								<label for="files">Choose file</label>
+								<input id="files" style="display:none;" type="file" name="ANORRL$CreateAsset$File" required>
+								<label id="filename">No file chosen</label>
+							</div>
+						</div>
+
+						<div class="create-field" style="display:none;" id="bodytyperow">
+							<label for="ANORRL_CreateAsset_BodyType">Body Type <span class="RequiredThing">*</span></label>
+							<select class="form-select" id="ANORRL_CreateAsset_BodyType" name="ANORRL$CreateAsset$BodyType">
+								<?php foreach(CharacterMeshType::all() as $type): ?>
+									<option value="<?= $type->ordinal() ?>"><?= htmlspecialchars($type->label(), ENT_QUOTES, 'UTF-8') ?></option>
+								<?php endforeach ?>
+							</select>
+						</div>
+
+						<div class="create-field" style="display:none;" id="AssetYear">
+							<label for="ANORRL_CreateAsset_Version">Version</label>
+							<select class="form-select" id="ANORRL_CreateAsset_Version" disabled>
+								<option>Default</option>
+							</select>
+						</div>
+
+						<div class="create-field create-form-row-full">
+							<label>Extras</label>
+							<div class="create-toggle-grid">
+								<div class="create-toggle">
+									<label for="ANORRL_CreateAsset_Public">Public</label>
+									<input id="ANORRL_CreateAsset_Public" name="ANORRL$CreateAsset$Public" type="checkbox" checked>
+								</div>
+								<div class="create-toggle">
+									<label for="ANORRL_CreateAsset_CommentsEnabled">Comments</label>
+									<input id="ANORRL_CreateAsset_CommentsEnabled" name="ANORRL$CreateAsset$CommentsEnabled" type="checkbox" checked>
+								</div>
+								<div class="create-toggle">
+									<label for="ANORRL_CreateAsset_Purchasable">Purchasable</label>
+									<input id="ANORRL_CreateAsset_Purchasable" name="ANORRL$CreateAsset$Purchasable" type="checkbox" checked>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="create-submit-row">
+						<div class="create-note"><span class="RequiredThing">*</span> means required fields.</div>
+						<input type="submit" value="Upload" name="ANORRL$CreateAsset$Submit" onclick="$(this).attr('disabled', 'true'); document.forms[0].submit()">
 					</div>
 				</div>
-
-				
 			</form>
 			<script>
 				function toggleTemplate() {
@@ -333,29 +631,42 @@
 					}
 				}
 			</script>
-			<div class="Window" style="display: none; margin: 0 auto; margin-top: 10px; margin-bottom: 0px;" id="ShirtPantsTemplate">
-				<div id="Name" style="min-width: 328px;"><span id="Title"></span><a id="ShowHideTemplate" href="javascript:toggleTemplate()">(Show)</a></div>
-				<div id="Contents" style="display: none;">
+			<div class="create-rule-card" style="display: none;" id="ShirtPantsTemplate">
+				<h3><span id="Title"></span> <a id="ShowHideTemplate" href="javascript:toggleTemplate()">(Show)</a></h3>
+				<div id="Contents" style="display: none;" class="text-center">
 					<a download="" href="" title="Click to download!">
 						<img alt="Click to download!" src="" height="300">
 					</a>
 				</div>
 			</div>
-		</div>
-		<div id="AssetsContainer" style="border-top: 2px solid black">
-			<div id="StatusText">
-				<b id="Loading" style="display: none">Loading assets...</b>
-				<b id="NoAssets" style="display: none"><img src="/public/images/noassets.png" style="width: 110px;display: block;margin: 0 auto;margin-bottom: -92px;margin-top: 23px;">You have no <span id="AssetType"></span>!</b>
-			</div>
-		
-			<table hidden></table>
 
-			<div id="Paginator" style="display: none">
-				<a href="javascript:ANORRL.Create.DeadvancePager()" id="PrevPager">&lt;&lt;Previous</a> Page <input maxlength="4"> of <span id="Pages">1</span> <a href="javascript:ANORRL.Create.AdvancePager()" id="NextPager">Next&gt;&gt;</a>
+			<div id="AssetsContainer">
+				<div class="create-assets-head">
+					<div>
+						<h3 class="create-assets-title">Your Latest Uploads</h3>
+						<p class="create-assets-subtitle">The panel below still uses the legacy asset feed API, just restyled to match the current site.</p>
+					</div>
+				</div>
+
+				<div id="StatusText">
+					<b id="Loading" style="display: none">Loading assets...</b>
+					<div id="NoAssets">
+						<img src="/public/images/noassets.png" style="width: 110px; display: block; margin: 0 auto 1rem;" alt="No assets">
+						You have no <span id="AssetType"></span>!
+					</div>
+				</div>
+
+				<table hidden></table>
+
+				<div id="Paginator">
+					<a href="javascript:ANORRL.Create.DeadvancePager()" id="PrevPager">&lt;&lt;Previous</a>
+					Page <input maxlength="4">
+					of <span id="Pages">1</span>
+					<a href="javascript:ANORRL.Create.AdvancePager()" id="NextPager">Next&gt;&gt;</a>
+				</div>
 			</div>
 		</div>
 	</div>
-	
 </div>
 
 <?php

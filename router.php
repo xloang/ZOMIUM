@@ -82,6 +82,9 @@
 	
 	route('GET|POST', '/catalog', '/private/views/catalog.php');
 	route('GET|POST', '/games', '/private/views/games.php');
+	route('GET|POST', '/forum', '/private/views/forum.php');
+	route('GET|POST', '/forum/category/[*:slug]', '/private/views/forum.php');
+	route('GET|POST', '/forum/topic/[i:topicId]', '/private/views/forum_topic.php');
 	route('GET|POST', '/vandals', '/private/views/vandals.php');
 	route('GET|POST', '/edit', '/private/views/edit.php');
 
@@ -108,6 +111,9 @@
 	route('GET',      '/thumbs/headshot', '/private/thumbs/headshot.php');
 	route('GET',      '/thumbs/', '/private/thumbs/index.php');
 
+    route('GET',      '/admi/', '/private/views/Admi/index.php');
+    route('GET|POST', '/admi/announcements', '/private/views/Admi/announcements.php');
+
 	route('GET',      '/info/credits', '/private/views/info/credits.php');
 
 	route('GET',      '/download', '/private/views/download/index.php');
@@ -117,6 +123,7 @@
 	route('GET|POST', '/my/home', '/private/views/my/home.php');
 	route('GET|POST', '/my/profile', '/private/views/my/profile.php');
 	route('GET|POST', '/my/character', '/private/views/my/character.php');
+	route('GET|POST', '/my/settings', '/private/views/my/settings.php');
 	route('GET|POST', '/my/places', '/private/views/my/places.php');
 
 	route('GET|POST', '/ide/publish', '/private/views/my/places.php');

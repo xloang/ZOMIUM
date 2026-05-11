@@ -5,6 +5,19 @@
 	}
 
 	$pendingRequests = $currentUser ? $currentUser->getPendingFriendRequestsCount() : 0;
+	$siteAnnouncement = isset(CONFIG->site_announcement) ? trim((string) CONFIG->site_announcement) : '';
+	$announcementColorKey = isset(CONFIG->site_announcement_color) ? (string) CONFIG->site_announcement_color : 'sky';
+	$announcementColors = [
+		'sky' => ['background' => '#20a8c9', 'text' => '#0f1b22'],
+		'green' => ['background' => '#38a169', 'text' => '#f4fff7'],
+		'gold' => ['background' => '#d6a21d', 'text' => '#221700'],
+		'red' => ['background' => '#c84b4b', 'text' => '#fff5f5'],
+		'violet' => ['background' => '#7b61c8', 'text' => '#f8f5ff']
+	];
+	if (!array_key_exists($announcementColorKey, $announcementColors)) {
+		$announcementColorKey = 'sky';
+	}
+	$announcementColor = $announcementColors[$announcementColorKey];
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,21 +41,26 @@
 </head>
 <body <?= $this->settings->nightbg ? "night" : "" ?>>
 <style>
-.app-navbar .nav-link:hover,
-.app-subnav .nav-link:hover,
-.nav-scroller-inner > a.nav-link:hover {
-	text-decoration: underline;
-	text-decoration-color: #6fb7ff;
-	text-decoration-thickness: 2px;
-	text-underline-offset: .45rem;
-}
+	.app-navbar .nav-link,
+	.app-subnav .nav-link,
+	.nav-scroller-inner > a.nav-link,
+	.navbar-brand,
+	.dropdown-item {
+		font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+		font-weight: 650 !important;
+	}
+
+	.global-announcement {
+		font-size: 1rem;
+		padding: .45rem 1rem;
+		text-align: center;
+	}
 </style>
 <div class="app-shell d-flex flex-column min-vh-100">
 	<nav class="navbar navbar-expand-lg navbar-dark app-navbar shadow-sm sticky-top">
 		<div class="container">
-			<a class="navbar-brand d-flex align-items-center gap-2" href="<?= $currentUser ? '/my/home' : '/' ?>">
+			<a class="navbar-brand d-flex align-items-center" href="/my/home">
 				<img src="/public/images/legacy/finnobe3llogo.png" alt="Zomium" class="app-brand-logo">
-				<span class="app-brand-text">Zomium</span>
 			</a>
 
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,13 +69,16 @@
 
 			<div class="collapse navbar-collapse" id="navbarMain">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center">
-					<li class="nav-item"><a class="nav-link" href="<?= $currentUser ? '/my/home' : '/' ?>">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="/my/home">ZOMIUM</a></li>
 					<?php if ($currentUser): ?>
 						<li class="nav-item"><a class="nav-link" href="/users/<?= $currentUser->id ?>/profile">Profile</a></li>
 					<?php endif; ?>
 					<li class="nav-item"><a class="nav-link" href="/games">Games</a></li>
 					<li class="nav-item"><a class="nav-link" href="/catalog">Catalog</a></li>
-					<li class="nav-item"><a class="nav-link" href="/download">Download</a></li>
+					<?php if ($currentUser): ?>
+						<li class="nav-item"><a class="nav-link" href="/create">Create</a></li>
+						<li class="nav-item"><a class="nav-link" href="/forum">Forum</a></li>
+					<?php endif; ?>
 					<li class="nav-item"><a class="nav-link" href="/badges">Badges</a></li>
 				</ul>
 
@@ -110,12 +131,20 @@
 					<?php if ($currentUser->isAdmin()): ?>
 						<a class="nav-link" href="/create"><i class="fas fa-plus me-2"></i>Create</a>
 					<?php endif; ?>
+					<a class="nav-link" href="/forum"><i class="fas fa-comments me-2"></i>Forum</a>
 					<a class="nav-link" href="/my/character"><i class="fas fa-user me-2"></i>Character</a>
 					<a class="nav-link" href="/my/stuff"><i class="fas fa-box-open me-2"></i>Inventory</a>
 					<a class="nav-link" href="/my/friends"><i class="fas fa-user-friends me-2"></i>Friends</a>
 					<a class="nav-link" href="/my/places"><i class="fas fa-map me-2"></i>Places</a>
+					<li class="nav-item"><a class="nav-link" href="/download">Download</a></li>
 				</div>
 			</div>
+		</div>
+	<?php endif; ?>
+
+	<?php if ($siteAnnouncement !== ''): ?>
+		<div class="global-announcement" style="background: <?= htmlspecialchars($announcementColor['background'], ENT_QUOTES, 'UTF-8') ?>; color: <?= htmlspecialchars($announcementColor['text'], ENT_QUOTES, 'UTF-8') ?>;">
+			<?= htmlspecialchars($siteAnnouncement, ENT_QUOTES, 'UTF-8') ?>
 		</div>
 	<?php endif; ?>
 

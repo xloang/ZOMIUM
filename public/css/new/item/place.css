@@ -128,7 +128,7 @@ hr {
 
 #PlaceInfoArea #InfoHeaders td[selected] {
 	background: #2b2b2b;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 #PlaceInfoArea #InfoBox {

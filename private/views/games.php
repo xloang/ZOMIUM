@@ -24,7 +24,7 @@ body { background: #0f0f10 !important; background-image: none !important; }
 .game-thumb-container img { width: 100%; height: 100%; object-fit: cover; display: block; background: #111; }
 .game-card .card-body { background: #18181b !important; }
 .game-card a, .game-card .text-secondary, .game-card .text-muted, .inline-badge { color: #eef2f7 !important; }
-.game-card a:hover:not(.btn) { text-decoration: underline !important; text-decoration-color: #6fb7ff !important; text-decoration-thickness: 2px; text-underline-offset: .28rem; }
+	.game-card a:hover:not(.btn) { text-decoration: none !important; color: #ffffff !important; }
 .inline-badge { display: inline-flex; align-items: center; gap: .35rem; padding: .2rem .5rem; border-radius: .3rem; font-size: .82rem; }
 .game-flag { position: absolute; top: .55rem; left: .55rem; background: #da5a64; color: #fff; font-size: .72rem; font-weight: 700; padding: .12rem .35rem; border-radius: .2rem; line-height: 1.2; }
 .game-year { position: absolute; top: .55rem; right: .55rem; background: rgba(255,255,255,.88); color: #111; font-size: .72rem; font-weight: 700; padding: .12rem .4rem; border-radius: .2rem; }

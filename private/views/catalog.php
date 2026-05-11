@@ -26,7 +26,7 @@ body { background: #0f0f10 !important; background-image: none !important; }
 .asset-thumb-container img { width: 100%; height: 100%; object-fit: contain; display: block; background: #111; }
 .asset-card .card-body { background: #18181b !important; }
 .asset-card a, .asset-card .text-secondary, .asset-card .text-muted, .catalog-chip, .catalog-item-title { color: #eef2f7 !important; }
-.asset-card a:hover:not(.btn) { text-decoration: underline !important; text-decoration-color: #6fb7ff !important; text-decoration-thickness: 2px; text-underline-offset: .28rem; }
+	.asset-card a:hover:not(.btn) { text-decoration: none !important; color: #ffffff !important; }
 .catalog-flag { position: absolute; top: .55rem; right: .55rem; background: #2b2d33; color: #fff; font-size: .72rem; font-weight: 700; padding: .16rem .45rem; border-radius: .2rem; line-height: 1.2; }
 .catalog-chip { display: inline-flex; align-items: center; gap: .35rem; padding: .2rem .5rem; border-radius: .3rem; font-size: .82rem; border: 1px solid rgba(255,255,255,.08); }
 .catalog-item-title { font-weight: 700; font-size: .98rem; }

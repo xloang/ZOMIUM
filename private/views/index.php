@@ -18,34 +18,40 @@
 ?>
 <style>
 body {
-	background: #0d1117 !important;
-}
-.landing-shell {
+	background: #0d1117;
+	margin: 0;
+	min-height: 100vh;
 	position: relative;
-	min-height: calc(100vh - 140px);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 4rem 1.25rem 5rem;
-	overflow: hidden;
-	z-index: 0;
+	overflow-x: hidden;
 }
-.landing-bg {
-	position: absolute;
+
+body::before {
+	content: "";
+	position: fixed;
 	inset: 0;
+
 	background:
-		linear-gradient(180deg, rgba(9,15,25,.6), rgba(9,15,25,.85)),
-		url('/public/images/xmas_small.jpg') center/cover no-repeat;
-	filter: blur(6px);
-	transform: scale(1.05);
-	z-index: 0;
+		linear-gradient(180deg, rgba(9,15,25,.55), rgba(9,15,25,.85)),
+		url('/public/images/xmas_small.jpg');
+
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	filter: blur(8px);
+	transform: scale(1.15);
+
+	z-index: -2;
 }
-.landing-overlay {
-	position: absolute;
+
+body::after {
+	content: "";
+	position: fixed;
 	inset: 0;
-	background: linear-gradient(180deg, rgba(0,0,0,.1), rgba(0,0,0,.4));
-	z-index: 1;
+	background: rgba(0,0,0,.35);
+	z-index: -1;
 }
+
 .landing-content {
 	position: relative;
 	z-index: 2;

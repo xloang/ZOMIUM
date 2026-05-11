@@ -34,7 +34,7 @@
 
 #StuffNavigation ul > li[selected] a {
 	font-weight: bold;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 #AssetsContainer {

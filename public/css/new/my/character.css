@@ -58,7 +58,7 @@ h4 {
 
 #CharacterContainer a[data_category][selected] {
 	font-weight: bold;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 
@@ -138,4 +138,4 @@ h4 {
 	height: 32px;
 	margin: 2px;
 }
-
+

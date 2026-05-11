@@ -48,6 +48,7 @@
 
     /* Ã‚Â¦ App UI Tokens Ã‚Â¦ */
     --app-body:         #0f0f10;
+    --app-body-accent:  #17171a;
     --app-surface:      #121212;
     --app-surface-soft: #121212;
     --app-surface-alt:  #121212;
@@ -98,7 +99,7 @@ body {
     -webkit-font-smoothing: antialiased;
     font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: var(--app-text) !important;
-    background: var(--app-body);
+    background: #0f0f10 !important;
     background-image: none !important;
 }
 
@@ -115,7 +116,13 @@ textarea,
     font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-a { color: var(--app-link); text-decoration: none; }
+a,
+a:hover,
+a:focus,
+a:active {
+    color: var(--app-link);
+    text-decoration: none !important;
+}
 
 hr { border: 0; border-top: 1px solid var(--app-border); opacity: 1; }
 
@@ -431,10 +438,8 @@ body > table[template],
 .app-navbar .nav-link:hover,
 .app-subnav .nav-link:hover,
 .nav-scroller-inner > a.nav-link:hover {
-    text-decoration: underline;
-    text-decoration-color: #6fb7ff;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 0.45rem;
+    color: #ffffff !important;
+    text-decoration: none !important;
 }
 
 .nav-finobe { gap: .4rem; }
@@ -596,9 +601,16 @@ a.forum-post { text-decoration: none; color: inherit; }
 .game-card a:hover:not(.btn),
 .catalog-grid a:hover:not(.btn),
 #ContainerThingy a:hover:not(.btn) {
-    text-decoration: underline !important;
-    text-decoration-color: #6fb7ff !important;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 0.3rem;
+    text-decoration: none !important;
+    color: #ffffff !important;
 }
 
+.page-title,
+.section-title,
+.catalog-item-title,
+.places-title,
+.forum-topic-title,
+.create-section-title {
+    font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    letter-spacing: 0.01em;
+}

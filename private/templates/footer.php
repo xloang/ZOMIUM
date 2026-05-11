@@ -16,7 +16,7 @@
 	}
 	.app-footer-inner a:hover {
 		color: #0a8cd1;
-		text-decoration: underline;
+		text-decoration: none;
 	}
 	</style>
 
@@ -33,7 +33,8 @@
 
 				<div class="d-flex flex-wrap gap-3 small">
 					<a href="/info/credits">Credits</a> |
-					<a href="/download">Download</a> |
+					<a href="/legal">Legal</a> |
+					<a href="/Privacy">Privacy</a> |
 					<a href="https://discord.gg/5RsJrCCAzx">Discord</a>
 				</div>
 
