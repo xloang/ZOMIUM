@@ -8,6 +8,9 @@ please work on this shit ✡️
 ## .info
 
 Check out the [Trello page](https://trello.com/b/DvR69YH5/zomium)
+
+
+
 url is: zomium.xyz
 also this will be released as private when summer breakout comes also i will buy vds
 
