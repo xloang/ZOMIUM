@@ -28,8 +28,9 @@ ANORRL.Home = {
 		}
 
 		var feedscontainer = $("#FeedsContainer #Feeds");
+		var feedTemplate = $("#FeedItem[template]").first().clone();
 
-		feedscontainer.children().each(function() {
+		feedscontainer.children().not("[template]").each(function() {
 			$(this).remove();
 		});
 
@@ -52,9 +53,9 @@ ANORRL.Home = {
 			for (var key in statuses) {
 				var status = statuses[key];
 
-				var template = $($("#FeedItem[template]").clone().prop('outerHTML'));
+				var template = $(feedTemplate.prop('outerHTML'));
 				template.removeAttr("template");
-				template.removeAttr("class");
+				template.removeClass("d-none");
 
 				if(index % 2 == 0) {
 					template.attr("other", "");

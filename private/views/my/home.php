@@ -23,7 +23,7 @@
 	unset($_SESSION['ANORRL$Home$StatusResult'], $_SESSION['ANORRL$Home$StatusError']);
 
 	$page = new Page("Dashboard", "my/home");
-	$page->addScript("/js/home.js?t=1771413807");
+	$page->addScript("/js/home.js?t=1771413901");
 	$page->loadHeader();
 ?>
 <style>
@@ -378,7 +378,6 @@
 	<div class="container">
 		<div class="row align-items-center g-4">
 			<div class="col-lg-8">
-				<div class="home-kicker">dashboard</div>
 				<h1 class="home-title">welcome back, <?= htmlspecialchars($user->name, ENT_QUOTES, 'UTF-8') ?></h1>
 				<a class="btn btn-success home-cta" href="#feed-section">
 					<span>&rsaquo;</span>
@@ -418,7 +417,7 @@
 						class="form-control feed-composer"
 						name="ANORRL$Home$Status$Text"
 						maxlength="64"
-						placeholder="Durum yaz..."></textarea>
+						placeholder="How are you?"></textarea>
 				</div>
 				<button class="btn btn-success feed-submit" type="submit" name="ANORRL$Home$Status$Submit">post</button>
 			</form>

@@ -336,7 +336,7 @@ h1 {
 }
 
 h1, h2, h3, h4 {
-	background: black;
+	background: transparent;
 	padding: 5px 20px;
 	width: fit-content;
 	font-family: punk;

@@ -1,12 +1,6 @@
 <?php
-	ini_set('session.use_strict_mode', 0);
-	ini_set('session.use_cookies', 1);
-	ini_set('session.use_only_cookies', 1);
-	ini_set('session.cookie_httponly', 0);
-	ini_set('session.cookie_secure', 0);
-	ini_set('session.cookie_samesite', 'Lax');
 
-	session_name("ANORRLSESSID");
+
 	if (session_status() !== PHP_SESSION_ACTIVE) {
 		session_start();
 	}
