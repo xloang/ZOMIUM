@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZOMIUM | Games</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-white">
+<%- include("partials/navbar") %>
+<% const viewer = typeof currentUser !== "undefined" ? currentUser : null; %>
+
+<form class="d-flex justify-content-center" role="search">
+  <input 
+    class="form-control me-2"
+    type="search"
+    placeholder="Search..."
+    aria-label="Search"
+    style="width: 750px;"
+  >
+  <button class="btn btn-outline-light" type="submit">
+    Search
+  </button>
+</form>
+
+<div class="card bg-dark text-light border-secondary shadow" style="width: 18rem;">
+  <img class="card-img-top" src="https://placehold.co/286x180" alt="Card image cap">
+
+  <div class="card-body">
+    <h5 class="card-title">Placeholder</h5>
+
+    <p class="card-text text-light">
+     Made by  <%= viewer ? viewer.username : "Guest" %>
+    </p>
+
+    <a href="#" class="btn btn-primary">
+      Play
+    </a>
+  </div>
+</div>
+
+
+
+
+<%- include("partials/footer") %>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+ </body>
+ </html>

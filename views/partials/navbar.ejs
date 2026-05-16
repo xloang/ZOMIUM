@@ -1,7 +1,7 @@
+<% const viewer = typeof currentUser !== "undefined" ? currentUser : null; %>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary">
   <div class="container">
-
-    <a class="navbar-brand fw-bold text-light" href="/">
+    <a class="navbar-brand fw-bold text-light" href="<%= viewer ? '/my/home' : '/' %>">
       ZOMIUM
     </a>
 
@@ -18,45 +18,41 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    
+    <li class="nav-item">
+      <a class="nav-link active text-light" href="<%= viewer ? '/my/home' : '/' %>">
+        Home
+      </a>
+    </li>
 
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+      <a class="nav-link active text-light" href="<%= viewer ? '/games' : '/' %>">
+        Games
+      </a>
+    </li>
+<li class="nav-item">
+      <a class="nav-link active text-light" href="<%= viewer ? '/catalog' : '/' %>">
+        Catalog
+      </a>
+    </li>
+  </ul>
+</div>
 
-        <li class="nav-item">
-          <a class="nav-link active text-light" href="/">Home</a>
-        </li>
+      <% if (viewer) { %>
+        <div class="d-flex align-items-center gap-3 ms-auto">
+          <span class="text-light fw-semibold"><%= viewer.username %></span>
 
-        <li class="nav-item">
-          <a class="nav-link text-light" href="/register">Register</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link text-light" href="/login">Login</a>
-        </li>
-
-      <!--
-        
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle text-light"
-            href="#"
-            id="navbarDropdown"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Dropdown
-          </a>
--->
-
-      </ul>
-<!--
-      <form class="d-flex" role="search">
-        <input class="form-control me-2 bg-dark text-light border-secondary" type="search" placeholder="Search">
-        <button class="btn btn-outline-light" type="submit">
-          Search
-        </button>
-      </form>
--->
+          <form action="/logout" method="post" class="mb-0">
+            <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
+          </form>
+        </div>
+      <% } else { %>
+        <div class="d-flex align-items-center gap-2 ms-auto">
+          <a href="/register" class="btn btn-primary">Register</a>
+          <a href="/login" class="btn btn-primary">Login</a>
+        </div>
+      <% } %>
     </div>
-  </div> 
+  </div>
 </nav>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Catalog</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+</head>
+
+<body class="bg-dark text-white">
+<%- include("partials/navbar") %>
+        <% const viewer = typeof currentUser !== "undefined" ? currentUser : null; %>
+
+  <!-- Catalog -->
+  <div class="container py-5">
+
+    <h2 class="mb-4 fw-bold">
+      Catalog
+    </h2>
+
+    <div class="row g-4">
+
+      <!-- Item -->
+      <div class="col-md-3">
+        <div class="card bg-black text-white border-secondary h-100 shadow">
+
+          <img
+            src="https://placehold.co/300x200"
+            class="card-img-top"
+          >
+
+          <div class="card-body">
+
+            <h5 class="card-title">
+              Placeholder
+            </h5>
+
+            <p class="card-text text-secondary">
+Made by    - <%= viewer ? viewer.username : "Guest" %>
+           </p>
+
+            <button class="btn btn-primary w-100">
+              Buy
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Item -->
+      
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<%- include("partials/footer") %>
+</body>
+</html>
