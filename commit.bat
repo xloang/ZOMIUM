@@ -5,7 +5,7 @@ echo =========================
 echo   GIT AUTO COMMIT TOOL
 echo =========================
 
-:: Degisiklikleri ekle
+:: Değişiklikleri ekle
 echo.
 echo [1] Degisiklikler ekleniyor...
 git add .
@@ -19,16 +19,11 @@ echo.
 echo [2] Commit atiliyor...
 git commit -m "%msg%"
 
-:: Remote degisiklikleri cek
-echo.
-echo [3] Github degisiklikleri aliniyor...
-git pull --rebase origin main
-
 :: Push yap
 echo.
-echo [4] Github'a gonderiliyor...
-git push origin main
+echo [3] Github'a gonderiliyor...
+git push
 
 echo.
-echo Islem tamamlandi.
+echo Islem tamamlandi!
 pause

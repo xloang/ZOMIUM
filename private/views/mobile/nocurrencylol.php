@@ -1,1 +1,0 @@
-<?php echo "Lol you fucking dumbass there's NOOO such thing as MONEY you IMBECILE!"; ?>
