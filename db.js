@@ -30,6 +30,26 @@ async function initializeDatabase() {
     CREATE UNIQUE INDEX IF NOT EXISTS users_email_normalized_key
     ON users (email_normalized)
   `);
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS games (
+      id BIGSERIAL PRIMARY KEY,
+      name VARCHAR(100) NOT NULL,
+      description TEXT NOT NULL,
+      created_by BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+
+  await pool.query(`
+    CREATE INDEX IF NOT EXISTS games_created_by_idx
+    ON games (created_by)
+  `);
+
+  await pool.query(`
+    CREATE INDEX IF NOT EXISTS games_created_at_idx
+    ON games (created_at DESC)
+  `);
 }
 
 module.exports = {

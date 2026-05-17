@@ -4,6 +4,8 @@ const session = require("express-session");
 const bcrypt = require("bcrypt");
 const connectPgSimple = require("connect-pg-simple");
 const { pool, initializeDatabase } = require("./db");
+const { createGameController } = require("./core/controllers/gameController");
+const gameService = require("./core/services/gameService");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -124,6 +126,11 @@ function validateRegistrationInput({ username, email, password }) {
   return null;
 }
 
+const gameController = createGameController({
+  ensureDatabaseReady,
+  gameService,
+});
+
 app.get("/", (req, res) => {
   if (req.session.user) {
     return res.redirect("/my/home");
@@ -204,13 +211,14 @@ app.get("/login", redirectIfAuthenticated, (req, res) => {
   renderAuthPage(res, "login");
 });
 
-app.get("/games", requireAuth, (req, res) => {
-  res.render("games");
-});
+app.get("/games", requireAuth, gameController.showGamesPage);
 
 app.get("/catalog", requireAuth, (req, res) => {
   res.render("catalog");
 });
+
+app.get("/develop", requireAuth, gameController.showDevelopPage);
+app.post("/develop/create-game", requireAuth, gameController.createGame);
 
 app.post("/login", redirectIfAuthenticated, async (req, res) => {
   const username = (req.body.username || "").trim();

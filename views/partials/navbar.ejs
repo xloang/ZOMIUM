@@ -24,24 +24,35 @@
       <a class="nav-link active text-light" href="<%= viewer ? '/my/home' : '/' %>">
         Home
       </a>
-    </li>
+    
 
-    <li class="nav-item">
-      <a class="nav-link active text-light" href="<%= viewer ? '/games' : '/' %>">
-        Games
-      </a>
-    </li>
-<li class="nav-item">
-      <a class="nav-link active text-light" href="<%= viewer ? '/catalog' : '/' %>">
-        Catalog
-      </a>
-    </li>
+    
   </ul>
 </div>
 
       <% if (viewer) { %>
+
+
         <div class="d-flex align-items-center gap-3 ms-auto">
           <span class="text-light fw-semibold"><%= viewer.username %></span>
+          
+          <li class="nav-item">
+      <a class="nav-link active text-light" href="<%= viewer ? '/games' : '/' %>">
+        Games
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link active text-light" href="<%= viewer ? '/develop' : '/' %>">
+        Develop
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link active text-light" href="<%= viewer ? '/catalog' : '/' %>">
+        Catalog
+      </a>
+    </li>
 
           <form action="/logout" method="post" class="mb-0">
             <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
